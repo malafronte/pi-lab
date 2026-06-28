@@ -335,4 +335,4 @@ Nel documento precedente abbiamo analizzato in dettaglio (leggendo il codice) co
 
 ---
 
-*Documento generato il 2026-06-28. Correlati: `pi-gotgenes-packages-guida.md` (reference tecnica gotgenes, §3.6/3.7), `pi-subagents-tutorial.md` (tutorial da zero sul setup gotgenes, con il test reale).*
+*Documento generato il 2026-06-28. Correlati: `pi-subagents-nicobailon-guida.md` (guida completa del package nicobailon ora attivo), `pi-gotgenes-packages-guida.md` (reference tecnica gotgenes, §3.6/3.7), `pi-subagents-tutorial.md` (tutorial da zero con appendice permessi+worktree).*
