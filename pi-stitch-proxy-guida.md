@@ -20,7 +20,7 @@
 
 Il server MCP di Stitch espone 14 tool, ma nei loro JSON Schema usa `$ref` **cross-referenziati** tra `inputSchema` e `outputSchema` che puntano a `$defs/ScreenInstance` non risolvibili dalla radice dello schema. L'SDK MCP ufficiale (`@modelcontextprotocol/sdk`, usato da `pi-mcp-adapter`) valida gli schema con **Ajv** in fase di `connect` e fallisce con:
 
-```
+```text
 can't resolve reference #/$defs/ScreenInstance from id #
 ```
 
@@ -48,7 +48,7 @@ Il workaround è stato verificato in due fasi.
 **Fase 1 — riproduzione del percorso SDK di pi attraverso il proxy:**
 
 | Passo | Risultato |
-|---|---|
+| --- | --- |
 | `client.connect(transport)` verso il proxy | ✅ OK (l'errore precedente è **scomparso**) |
 | `client.listTools()` | ✅ 14 tool caricati |
 | `client.callTool({ name: "list_projects" })` | ✅ ha restituito i progetti reali dell'utente |
@@ -129,10 +129,12 @@ Una volta avviato il proxy e fatto `/reload` (o riavviato pi), confermato funzio
 
 1. `/mcp` → il server `stitch` risulta connesso.
 2. Read-only: chiedi all'agente *«Usa Stitch per elencare i miei progetti»* oppure usa il proxy tool:
-   ```
+
+   ```text
    mcp({ search: "" })                          # elenca i 14 tool
    mcp({ tool: "stitch_list_projects", args: '{}' })
    ```
+
    (i tool Stitch vengono prefissati `stitch_*` dal `toolPrefix` di default)
 3. Task creativi: *«con Stitch crea un progetto "Demo" e genera una schermata di login…»* → userà `stitch_create_project`, `stitch_generate_screen_from_text`, ecc.
 
@@ -166,7 +168,7 @@ Quando accadrà, riattiva la connessione diretta (§7).
 ## 9. File
 
 | File | Descrizione |
-|---|---|
+| --- | --- |
 | `.pi/stitch-proxy/stitch-proxy.mjs` | Il proxy Node.js (copia del proxy OpenCode, riutilizzato tale e quale). |
 | `.pi/stitch-proxy/start-pi.ps1` | Script PowerShell che avvia proxy + pi (equivalente di `start-opencode.ps1`). |
 | `.mcp.json` | Configurazione MCP del progetto, punta al proxy locale. |

@@ -20,7 +20,7 @@
 ### Filosofia
 
 | Opzione | Filosofia |
-|---|---|
+| --- | --- |
 | **Nostra (locale)** | Todo-tracker minimale: piano numerato → execution mode con marker `[DONE:n]`. Codice tuo, basato sull'esempio ufficiale di pi. |
 | **`@narumitw/pi-plan-mode`** | Plan mode "alla Codex" maturo: piano come documento `<proposed_plan>`, focus su **sicurezza** dei tool custom, domande strutturate native. |
 | **`@2008muyu/pi-plan` + `questionnaire`** | **Two-phase workflow**: pianifica con un modello *strong*, esegui con uno *light*. Piani **persistenti su disco**, multipli, gestibili. Domande strutturate via `questionnaire` (estensione separata). |
@@ -28,7 +28,7 @@
 ### Feature (verificato nel codice)
 
 | Caratteristica | Nostra | narumitw | 2008muyu + questionnaire |
-|---|:-:|:-:|:-:|
+| --- | :-: | :-: | :-: |
 | `/plan` toggle | ✅ | ✅ | ✅ |
 | `/plan <prompt>` inline | ❌ | ✅ | ✅ |
 | `/plan resume / list / clean / abandon` | ❌ | ❌ | ✅ |
@@ -63,7 +63,7 @@
 ## 2. Quale scegliere (decisione rapida)
 
 | Se ti importa di più... | Scegli |
-|---|---|
+| --- | --- |
 | Ottimizzare **costo/qualità** (pianifica col top model, esegui col leggero) | **2008muyu + questionnaire** |
 | **Piani persistenti** tra riavvii, multipli, gestiti come progetti | **2008muyu + questionnaire** |
 | **Sicurezza massima** in plan mode + domande strutturate native, un solo pacchetto | **narumitw** |
@@ -86,14 +86,14 @@
 Tre forme possibili (tutte valide):
 
 | Forma | Provenienza | Note |
-|---|---|---|
+| --- | --- | --- |
 | **`pi-questionnaire` (npm)** | `pi install npm:pi-questionnaire` (v2.0.1) | Pacchetto terzo pubblicato su npm. Comodo da installare, va **auditato**. |
 | **Esempio bundled di pi** | `…/pi-coding-agent/examples/extensions/questionnaire.ts` (448 righe) | Va copiato in `~/.pi/agent/extensions/`. Codice leggibile, lo controlli tu. |
 | **Altro tool di domanda** | qualunque estensione che registri un tool `questionnaire` | 2008muyu cerca per nome, non per sorgente. |
 
 ### Il punto di sicurezza (da capire bene)
 
-**narumitw** disabilita tutti i tool non-built-in in plan mode di default (perché pi non sa se un'estensione è mutante). **2008muyu fa l'opposto**: tiene attivi tutti i tool tranne quelli in una tua **blacklist** (`planBlockedTools`). 
+**narumitw** disabilita tutti i tool non-built-in in plan mode di default (perché pi non sa se un'estensione è mutante). **2008muyu fa l'opposto**: tiene attivi tutti i tool tranne quelli in una tua **blacklist** (`planBlockedTools`).
 
 → Significa che se hai estensioni **mutanti** installate (es. un'estensione custom che scrive file, o `pi-mcp-adapter` con tool MCP che possono scrivere), in plan mode di 2008muyu **rimarrebbero attive** a meno che tu non le blacklisti esplicitamente. Questo è il costo della flessibilità. La sezione §4 spiega come gestirlo in modo sicuro.
 
@@ -121,12 +121,14 @@ Poi **riavvia pi** (richiesto una tantum) o `/reload`.
 
 Prima di configurare, scopri **quali tool mutanti** hai tra i piedi. Con pi avviato:
 
-```
+```text
 mcp({ search: "" })                     # se hai pi-mcp-adapter: tool MCP potenzialmente mutanti
 ```
+
 oppure guarda la lista tool nell'header di avvio di pi / con `pi getAllTools` da un'estensione.
 
 Tipici tool mutanti da **bloccare in plan mode**:
+
 - built-in: `edit`, `write` (2008muyu li blocca già di default, ma esplicitarli non guasta)
 - estensioni: qualunque tool che crea/modifica/cancella file o risorse (es. `firecrawl_*` se installato, tool MCP di scrittura, `godot_create_node` — che è proprio l'esempio del README di 2008muyu)
 - tool MCP: quelli dei server remoti che mutano stato (es. i tool Stitch `create_project`/`generate_screen_from_text`/`edit_screens`)
@@ -136,7 +138,7 @@ Tipici tool mutanti da **bloccare in plan mode**:
 2008muyu legge la config da due posti (project override global):
 
 | Scope | Path |
-|---|---|
+| --- | --- |
 | Globale | `~/.pi/agent/pi-plan.json` |
 | Progetto | `<cwd>/.pi/pi-plan.json` |
 
@@ -176,7 +178,7 @@ Tipici tool mutanti da **bloccare in plan mode**:
 ### Passo 4 — Scegliere la `bashSafetyMode`
 
 | Valore | Comportamento | Quando usarlo |
-|---|---|---|
+| --- | --- | --- |
 | `"allowlist"` (consigliato) | In plan mode bash accetta **solo** comandi in una safe-list (ls, grep, git status, --version, …). Tutto il resto è bloccato. | Default più sicuro. Coerente con "read-only". |
 | `"blacklist"` | Blocca solo comandi in una unsafe-list (rm, git commit, npm install, …). Il resto passa. | Più permissivo; rischioso perché un comando non in lista può fare danni. |
 
@@ -194,9 +196,11 @@ Per plan mode, **usa `"allowlist"`**. La blacklist lascia troppi margini (es. `n
 ### Esempio A — pianificare una feature complessa
 
 1. **Entri in plan mode con il prompt:**
-   ```
+
+   ```text
    /plan add authentication middleware with JWT support
    ```
+
    → pi passa al modello forte, restringe i tool a read-only + questionnaire, l'agente esplora il codebase. Mantiene un `.plans/add-auth-middleware/context.md` "living" mentre converge.
 
 2. **L'agente ti fa domande strutturate** (via questionnaire) sulle decisioni rilevanti:
@@ -213,9 +217,10 @@ Per plan mode, **usa `"allowlist"`**. La blacklist lascia troppi margini (es. `n
 
 ### Esempio B — riprendere un piano interrotto
 
-```
+```text
 /plan resume
 ```
+
 List i piani in-progress da disco. Scegli quello da continuare → riprende l'esecuzione (modello leggero) o riapre il planning (modello forte).
 
 ### Esempio C — gestire un task bloccato

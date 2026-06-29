@@ -96,7 +96,7 @@ Con un processo davvero nuovo, la factory di worktrees leggerà la config ora es
 
 Objective:
 
-```
+```text
 Test end-to-end di pi-subagents + pi-subagents-worktrees nel repo pi-test.
 
 Setup: .pi/subagents-worktrees.json con { "worktreeAgents": ["general-purpose"] } (GIÀ creato).
@@ -134,7 +134,7 @@ Documentazione locale dell'utente (già esistente nel repo, in italiano):
 
 Attivare il debug (env var documentata in `packages/pi-subagents-worktrees/src/debug.ts`):
 
-```
+```text
 PI_SUBAGENTS_WORKTREES_DEBUG=1
 ```
 

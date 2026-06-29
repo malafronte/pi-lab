@@ -36,7 +36,7 @@ Senza questi due pacchetti, un agente in pi lavora **da solo** e **nella tua ste
 I due pacchetti risolvono i due problemi separatamente e possono combinarsi:
 
 | Problema | Pacchetto | Soluzione |
-|---|---|---|
+| --- | --- | --- |
 | Sequenzialità | `pi-subagents` | Sub-agent **paralleli**, ognuno con task/tool/modello propri |
 | Condivisione working tree | `pi-subagents-worktrees` | Sub-agent **isolati** in un worktree git separato |
 
@@ -52,7 +52,7 @@ Per capire `pi-subagents-worktrees` devi prima capire **git worktree**, che è u
 
 Un repository git ha normalmente **una sola working tree**: la cartella con i file che vedi e modifichi, affiancata da una cartella nascosta `.git/` che contiene tutto lo storico.
 
-```
+```text
 mio-progetto/          ← working tree (i tuoi file)
 ├── .git/               ← lo storico (oggetti, branch, config)
 ├── src/
@@ -66,7 +66,7 @@ Se vuoi lavorare su un branch diverso, fai `git checkout` e i file *cambiano* ne
 
 `git worktree add` crea una **seconda cartella** che è una working tree aggiuntiva, ma **condivide la stessa `.git/`** (stesso storico, stessi oggetti, stessi branch). Non è un clone: è un'altra "vista" dello stesso repo.
 
-```
+```text
 mio-progetto/              ← working tree 1 (tu, su main)
 ├── .git/                   ← storico condiviso
 └── src/auth.ts
@@ -103,7 +103,7 @@ Quando un subagent è **isolato** (grazie a `pi-subagents-worktrees`), lavora in
    - Se **non ha fatto modifiche** → il worktree viene rimosso (niente tracce).
    - Se **ha fatto modifiche** → vengono committate su un branch `pi-agent-<id>`, il worktree viene rimosso, e il risultato del figlio ti dice come recuperarle:
 
-     ```
+     ```text
      Changes saved to branch pi-agent-c712baf7-bdb8-480. Merge with: git merge pi-agent-c712baf7-bdb8-480
      ```
 
@@ -142,7 +142,7 @@ Quando lanci un subagent **in background** (`run_in_background: true`), pi non a
 ### Foreground vs background
 
 | Modalità | Quando si usa | Comportamento |
-|---|---|---|
+| --- | --- | --- |
 | **Foreground** (default) | Serve il risultato *subito* per proseguire | La chiamata blocca finché il figlio non completa |
 | **Background** (`run_in_background: true`) | Task indipendenti, esplorazioni lunghe, più cose in parallelo | Ritorna subito l'ID; tu prosegui; recupero dopo |
 
@@ -152,7 +152,7 @@ Quando lanci un subagent **in background** (`run_in_background: true`), pi non a
 
 ## 5. I due pacchetti e come collaborano
 
-```
+```text
 ┌─────────────────────────────────────────────────────────┐
 │  pi-subagents  (il CORE)                                 │
 │  ─────────────────────────────────                       │
@@ -238,7 +238,7 @@ La config `.pi/subagents-worktrees.json` viene letta **una sola volta, all'avvio
 Se tu **crei o modifichi** `.pi/subagents-worktrees.json` **mentre pi è già in esecuzione**, la modifica **non ha effetto** finché non riavvii pi del tutto. E qui il dettaglio subdolo:
 
 | Azione | Rilegge la config? | Isolamento attivo? |
-|---|---|---|
+| --- | --- | --- |
 | `/reload` | ❌ No | Config vecchia/cacha |
 | Riprendere (resume) una sessione | ❌ No | Config vecchia/cacha |
 | Chiudere e riaprire la *stessa* sessione | ❌ No | Config vecchia/cacha |
@@ -272,7 +272,7 @@ Obiettivo: vedere **più agenti in parallelo** (senza isolamento, per ora). È l
 
 Esempio reale (tratto da un test end-to-end): lanciare **due `Explore` in parallelo**, ognuno con un task di esplorazione diverso.
 
-```
+```text
 subagent({
   subagent_type: "Explore",
   prompt: "Elenca tutti i file .md del repo e raggruppali per tema",
@@ -295,7 +295,7 @@ Cosa succede:
 - Il widget mostra l'attività di entrambi.
 - Quando completano, recuperi i risultati:
 
-  ```
+  ```text
   get_subagent_result({ agent_id: "<id1>", wait: true })
   get_subagent_result({ agent_id: "<id2>", wait: true })
   ```
@@ -322,7 +322,7 @@ Se la config è stata creata/modificata di recente, **assicurati di aver riavvia
 
 Foreground, task stretto (creare un solo file e fermarsi — niente git, niente commit da parte del figlio):
 
-```
+```text
 subagent({
   subagent_type: "general-purpose",
   description: "Worktree isolation test",
@@ -335,7 +335,7 @@ subagent({
 
 Il subagent completa e il suo risultato include una riga del tipo:
 
-```
+```text
 Changes saved to branch pi-agent-c712baf7-bdb8-480. Merge with: git merge pi-agent-c712baf7-bdb8-480
 ```
 
@@ -362,7 +362,7 @@ Esempio: 3 refactoring indipendenti, ognuno nel suo worktree, in contemporanea.
 { "worktreeAgents": ["general-purpose", "refactorer"] }
 ```
 
-```
+```text
 subagent({ subagent_type: "refactorer", prompt: "Rifattorizza src/auth/",     description: "Refactor auth",     run_in_background: true })
 subagent({ subagent_type: "refactorer", prompt: "Rifattorizza src/billing/",  description: "Refactor billing",  run_in_background: true })
 subagent({ subagent_type: "refactorer", prompt: "Rifattorizza src/notifications/", description: "Refactor notif", run_in_background: true })
@@ -451,7 +451,7 @@ Stampa su stderr i messaggi dei `catch` (normalmente silenti). Cosa cercare:
 ### Tabella riassuntiva
 
 | Sintomo | Causa probabile | Rimedio |
-|---|---|---|
+| --- | --- | --- |
 | File del figlio nel parent, nessun `pi-agent-*` | Config cachata vuota | Riavvio completo (§7) |
 | Niente isolamento neanche dopo riavvio | Provider non registrato | Debug env var + ordine settings |
 | Errore git esplicito dal figlio | Creazione worktree fallita | Leggi il messaggio (repo git? commit esistenti?) |
@@ -473,7 +473,7 @@ git branch -D pi-agent-<id>          # cancella il branch (forza, anche non merg
 git worktree prune                   # ripulisce eventuali worktree residui (raro)
 ```
 
-#### ⚠️ Residuo di cleanup su Windows (verificato nel test reale)
+### ⚠️ Residuo di cleanup su Windows (verificato nel test reale)
 
 Su Windows, `git worktree remove --force` può **non cancellare** la directory temporanea del worktree dal disco (file-lock tipico di Windows). Risultato: `git worktree list` è pulito e `git worktree prune` non trova nulla (git ha già dimenticato il worktree), ma la cartella `C:\Users\<utente>\AppData\Local\Temp\pi-agent-<id>-*` resta sul disco (tipicamente con sotto-cartelle vuote, es. `scripts/`). Il codice cattura l'errore in silenzio (`debugLog`). È ininfluente per l'isolamento, ma lascia spazzatura in temp. Per rimuoverla:
 
@@ -493,14 +493,14 @@ rm scripts/worktree-prove.cjs        # se è comparso nel parent per colpa di un
 
 Prima di considerare "isolamento + parallelismo" operativi nel tuo progetto, ticka tutto:
 
-**Setup**
+### Setup
 
 - [ ] `pi-subagents` e `pi-subagents-worktrees` installati (versioni compatibili).
 - [ ] In `settings.json`, `pi-subagents` è **prima** di `pi-subagents-worktrees`.
 - [ ] `.pi/subagents-worktrees.json` esiste ed elenca i tipi da isolare.
 - [ ] **pi riavviato completamente** dopo aver creato/modificato la config.
 
-**Isolamento (verifiche nel parent, dopo un subagent opt-in)**
+### Isolamento (verifiche nel parent, dopo un subagent opt-in)
 
 - [ ] `git status --short`: il file del figlio **non** compare.
 - [ ] `ls <file-del-figlio>`: exit 2.
@@ -508,13 +508,13 @@ Prima di considerare "isolamento + parallelismo" operativi nel tuo progetto, tic
 - [ ] `git show pi-agent-*:<file>`: stampa il contenuto.
 - [ ] `git rev-parse HEAD`: invariato rispetto a prima del figlio.
 
-**Parallelismo**
+### Parallelismo
 
 - [ ] Due o più `subagent` con `run_in_background: true` ritornano subito con ID diversi.
 - [ ] Il widget mostra attività simultanea.
 - [ ] `get_subagent_result({ agent_id, wait: true })` recupera ciascun risultato.
 
-**Se qualcosa non torna**
+### Se qualcosa non torna
 
 - [ ] `PI_SUBAGENTS_WORKTREES_DEBUG=1` per i log dei catch silenti.
 - [ ] Verifica ordine `settings.json` e presenza di `pi-subagents`.
@@ -542,7 +542,7 @@ La catena (tutta letta nel codice installato):
 
 Caso verificato in un test con 2 `worker` nicobailon in parallelo + `worktree: true`. Ogni `worker` (con `defaultProgress`) mantiene un file `progress.md`. pi-subagents **non** lo scrive nel worktree, ma nella cartella sessione:
 
-```
+```text
 ~/.pi/agent/sessions/<session-hash>/subagent-artifacts/progress/<runId>/progress.md
 ```
 
@@ -577,11 +577,11 @@ Alternative (se non vuoi toccare la config):
 
 I due package di gotgenes che hai attivi ricaricano la loro config in modi **diversi**, e questo cambia cosa devi fare dopo aver editato un file di config:
 
-| | `pi-permission-system` | `pi-subagents-worktrees` |
-|---|---|---|
+|   | `pi-permission-system` | `pi-subagents-worktrees` |
+| --- | --- | --- |
 | **Quando rilegge la config** | a ogni `session_start` + su `/reload` (`resources_discover` reason=reload) | **una sola volta all'avvio del processo** |
 | **Dopo aver editato la config** | **nessun riavvio necessario**: il prossimo subagent (session_start) la vede | **riavvio completo di pi obbligatorio** (`/reload` non basta) |
-| | verificato nel codice (`lifecycle.ts` → `refreshConfig`) | verificato empiricamente (vedi [§7](#7--la-trappola-del-caching-della-config-la-cosa-più-importante)) |
+|   | verificato nel codice (`lifecycle.ts` → `refreshConfig`) | verificato empiricamente (vedi [§7](#7--la-trappola-del-caching-della-config-la-cosa-più-importante)) |
 
 Quindi la **soluzione A di sopra** entra in vigore **immediatamente** per i nuovi subagent, senza che tu riavvii pi. (La trappola del riavvio, §7, riguarda invece `worktreeAgents`.)
 
@@ -589,7 +589,7 @@ Quindi la **soluzione A di sopra** entra in vigore **immediatamente** per i nuov
 
 Il test reale ha confermato che il forwarding dei prompt `ask` dai figli al parent **funziona attraverso i due ecosistemi**: nicobailon `pi-subagents` popola la env var `PI_SUBAGENT_PARENT_SESSION`, che il gotgenes `pi-permission-system` legge per sapere a quale sessione inoltrare. La sequenza temporale (dal log di review, correlata al millisecondo) per un prompt del worker:
 
-```
+```text
 18:48:14.180  child:  permission_request.waiting         (worker vuole leggere progress.md)
 18:48:14.185  parent: forwarded_permission.request_created  ← forward via PI_SUBAGENT_PARENT_SESSION
 18:48:14.214  parent: forwarded_permission.prompted         ← ti appare il dialog

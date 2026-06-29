@@ -29,6 +29,7 @@ Aggiunge un **ciclo di feedback sul codice in tempo reale** all'agente. Ad ogni 
 ```bash
 pi install npm:pi-lens
 ```
+
 Config progetto: `.pi-lens/lsp.json` (es. `warmFiles` per pre-riscaldare clangd).
 
 ## ⚠️ Sicurezza (punto critico)

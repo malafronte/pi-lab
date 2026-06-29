@@ -19,7 +19,7 @@
 
 ---
 
-## 1. L'agente ha accesso a internet?
+## 1. L'agente ha accesso a internet
 
 **Sì.** Anche se l'agente non ha uno strumento *dedicato* di tipo «fetch», può usare la rete attraverso il tool `bash` (con `curl`, `wget`, ecc.).
 
@@ -30,7 +30,7 @@ curl -sS --max-time 6 -o /dev/null -w "HTTP %{http_code} in %{time_total}s\n" ht
 # → HTTP 200 in 0.404662s
 ```
 
-## 2. I tool dell'agente dipendono dalla shell da cui avvio pi?
+## 2. I tool dell'agente dipendono dalla shell da cui avvio pi
 
 **No.** Il tool `bash` di pi risolve il proprio shell **in modo indipendente** dalla shell usata per lanciare pi.
 
@@ -56,7 +56,7 @@ Il processo è `win32`, ma i comandi girano in **Git Bash** (`/usr/bin/bash`).
 
 ---
 
-## 3. Esiste un tool «webfetch» in pi?
+## 3. Esiste un tool «webfetch» in pi
 
 **No.** I tool built-in di pi sono soltanto:
 
@@ -83,7 +83,7 @@ La sintassi `bash <comando>` serve solo quando ci si trova **in PowerShell/cmd**
 
 ---
 
-## 4. Quale curl usa l'agente? Quello di Git Bash o quello di Windows?
+## 4. Quale curl usa l'agente? Quello di Git Bash o quello di Windows
 
 **Quello di Git Bash** (`/mingw64/bin/curl`), non quello nativo di Windows.
 
@@ -102,7 +102,7 @@ file "$(command -v curl)"    # → PE32+ executable … x86-64  (binario reale, 
 
 Vince il curl di Git Bash perché nel `PATH` del bash risolto da pi compare per primo. È un eseguibile vero (PE32+, ~325 KB), non un alias né un'applet di shell.
 
-## 5. Come si scorre il buffer dei messaggi con la tastiera?
+## 5. Come si scorre il buffer dei messaggi con la tastiera
 
 **Non con le frecce.** Lo scroll con la rotellina del mouse «funziona» perché **non è pi a gestirlo**, ma il terminale. Le frecce invece sono catturate da pi.
 
@@ -111,7 +111,7 @@ Vince il curl di Git Bash perché nel `PATH` del bash risolto da pi compare per 
 Verificato nel codice di `pi-tui` (`dist/terminal.js`, `dist/tui.js`):
 
 | Aspetto | Riscontrato | Conseguenza |
-|---|---|---|
+| --- | --- | --- |
 | Mouse reporting (`?1000` / `?1002` / `?1006`) | **mai abilitato** | la rotellina è gestita dal **terminale**, che scrolla il proprio scrollback nativo |
 | Alternate screen (`?1049`) | **mai usato** | pi gira sullo schermo primario; i messaggi che escono dallo schermo finiscono nello **scrollback del terminale** |
 | Cancellazione scrollback (`\x1b[3J`) | solo su *full clear* (es. resize), non a ogni frame | lo scrollback si accumula normalmente |
@@ -121,7 +121,7 @@ Dunque la conversazione **non** è in un viewport scorribile gestito da pi: la r
 I keybinding che coinvolgono le frecce sono dell'**editor** (input), non della conversazione. Da `docs/keybindings.md` e `dist/core/keybindings.js`:
 
 | Tasto | Azione pi | Cosa fa davvero |
-|---|---|---|
+| --- | --- | --- |
 | `↑` / `↓` | `tui.editor.cursorUp` / `cursorDown` | sposta il cursore nell'editor / scorre lo **storico dei prompt** digitati |
 | `pageUp` / `pageDown` | `tui.editor.pageUp` / `pageDown` | scroll **interno** della casella di input (utile solo se l'input multi-riga deborda) |
 
@@ -130,7 +130,7 @@ I keybinding che coinvolgono le frecce sono dell'**editor** (input), non della c
 Su **Windows Terminal** (il caso tipico con PowerShell / Git Bash):
 
 | Tasto | Azione |
-|---|---|
+| --- | --- |
 | `Ctrl+Shift+↑` / `Ctrl+Shift+↓` | riga per riga |
 | `Ctrl+Shift+PgUp` / `Ctrl+Shift+PgDn` | pagina per pagina |
 | `Ctrl+Shift+Home` / `Ctrl+Shift+End` | inizio / fine dello scrollback |
@@ -153,7 +153,7 @@ Su **MinTTY** (finestra di Git Bash standalone): `Shift+PgUp` / `Shift+PgDn` e `
 ## Riepilogo rapido (TL;DR)
 
 | Domanda | Risposta sintetica |
-|---|---|
+| --- | --- |
 | L'agente ha internet? | **Sì**, via `bash` + `curl`/`wget`. Da verificare caso per caso, non dare per scontato. |
 | I tool dipendono dalla shell di avvio? | **No**. pi risolve il proprio bash (`settings` → Git Bash → `bash` su `PATH`). |
 | Esiste `webfetch` in pi? | **No**. È di Claude Code. In pi si usa `curl` nel tool `bash`. |

@@ -9,7 +9,7 @@ Dati raccolti da **pi.dev/packages** (basati su statistiche npm). La directory c
 ### 1. pi-lean-ctx — 10.200 download/mese
 
 | Campo | Valore |
-|-------|--------|
+| ------- | -------- |
 | **Tipo** | package |
 | **Install** | `pi install npm:pi-lean-ctx` |
 | **Repo** | [github.com/yvgude/lean-ctx](https://github.com/yvgude/lean-ctx) |
@@ -24,18 +24,20 @@ Dati raccolti da **pi.dev/packages** (basati su statistiche npm). La directory c
 ### 2. @juicesharp/rpiv-args — 10.000 download/mese
 
 | Campo | Valore |
-|-------|--------|
+| ------- | -------- |
 | **Tipo** | extension, skill, prompt |
 | **Install** | `pi install npm:@juicesharp/rpiv-args` |
 | **Repo** | [github.com/juicesharp/rpiv-mono](https://github.com/juicesharp/rpiv-mono) |
 | **Autore** | juicesharp |
 
-**Descrizione:** Placeholder shell-style `$1` / `$ARGUMENTS` e sostituzione `!`cmd` / ```!` per le skill di pi. Permette di passare argomenti alle skill come se fossero script shell, e di espandere comandi inline.
+**Descrizione:** Placeholder shell-style `$1` / `$ARGUMENTS` e sostituzione `!`cmd`/ ```!` per le skill di pi. Permette di passare argomenti alle skill come se fossero script shell, e di espandere comandi inline.
 
 **Esempio:**
-```
+
+```text
 /skill:my-skill "argomento1" "argomento2"
 ```
+
 Dentro la skill, `$1` e `$2` vengono sostituiti con gli argomenti.
 
 **Perché usarlo:** Se usi molto le skill e vuoi parametrizzarle con argomenti dinamici.
@@ -45,7 +47,7 @@ Dentro la skill, `$1` e `$2` vengono sostituiti con gli argomenti.
 ### 3. pi-studio — 10.000 download/mese
 
 | Campo | Valore |
-|-------|--------|
+| ------- | -------- |
 | **Tipo** | extension, theme |
 | **Install** | `pi install npm:pi-studio` |
 | **Repo** | [github.com/omaclaren/pi-studio](https://github.com/omaclaren/pi-studio) |
@@ -60,7 +62,7 @@ Dentro la skill, `$1` e `$2` vengono sostituiti con gli argomenti.
 ### 4. @juicesharp/rpiv-i18n — 9.852 download/mese
 
 | Campo | Valore |
-|-------|--------|
+| ------- | -------- |
 | **Tipo** | extension |
 | **Install** | `pi install npm:@juicesharp/rpiv-i18n` |
 | **Repo** | [github.com/juicesharp/rpiv-mono](https://github.com/juicesharp/rpiv-mono) |
@@ -75,7 +77,7 @@ Dentro la skill, `$1` e `$2` vengono sostituiti con gli argomenti.
 ### 5. @juicesharp/rpiv-pi — 9.276 download/mese
 
 | Campo | Valore |
-|-------|--------|
+| ------- | -------- |
 | **Tipo** | extension, skill |
 | **Install** | `pi install npm:@juicesharp/rpiv-pi` |
 | **Repo** | [github.com/juicesharp/rpiv-mono](https://github.com/juicesharp/rpiv-mono) |
@@ -90,7 +92,7 @@ Dentro la skill, `$1` e `$2` vengono sostituiti con gli argomenti.
 ### 6. pi-btw — 9.246 download/mese
 
 | Campo | Valore |
-|-------|--------|
+| ------- | -------- |
 | **Tipo** | extension |
 | **Install** | `pi install npm:pi-btw` |
 | **Repo** | [github.com/dbachelder/pi-btw](https://github.com/dbachelder/pi-btw) |
@@ -105,7 +107,7 @@ Dentro la skill, `$1` e `$2` vengono sostituiti con gli argomenti.
 ### 7. pi-mcp-extension — 8.720 download/mese ⭐
 
 | Campo | Valore |
-|-------|--------|
+| ------- | -------- |
 | **Tipo** | extension |
 | **Install** | `pi install npm:pi-mcp-extension` |
 | **Repo** | [github.com/irahardianto/pi-mcp-extension](https://github.com/irahardianto/pi-mcp-extension) |
@@ -117,6 +119,7 @@ Dentro la skill, `$1` e `$2` vengono sostituiti con gli argomenti.
 **⚠️ IMPORTANTE:** pi **NON include MCP nativamente**. È una scelta deliberata (vedi [pi.dev](https://pi.dev) — sezione "What we didn't build"). Per usare qualsiasi server MCP (incluso Stitch) **devi** installare un'estensione di terze parti. `pi-mcp-extension` è la più popolare.
 
 **Feature principali:**
+
 - Multi-trasporto: `stdio` (subprocess), `streamable-http`, `sse` (legacy)
 - Auto-discovery: `tools/list` paginato con cursori (MCP 2025-03-26)
 - Live tool refresh: `notifications/tools/list_changed`
@@ -132,7 +135,7 @@ Dentro la skill, `$1` e `$2` vengono sostituiti con gli argomenti.
 ### 8. pi-ask-user — 8.529 download/mese
 
 | Campo | Valore |
-|-------|--------|
+| ------- | -------- |
 | **Tipo** | extension |
 | **Install** | `pi install npm:pi-ask-user` |
 | **Repo** | [github.com/edlsh/pi-ask-user](https://github.com/edlsh/pi-ask-user) |
@@ -147,7 +150,7 @@ Dentro la skill, `$1` e `$2` vengono sostituiti con gli argomenti.
 ### 9. @firstpick/pi-package-webui — 8.341 download/mese
 
 | Campo | Valore |
-|-------|--------|
+| ------- | -------- |
 | **Tipo** | extension |
 | **Install** | `pi install npm:@firstpick/pi-package-webui` |
 | **Repo** | [github.com/Firstp1ck/npm-packages](https://github.com/Firstp1ck/npm-packages) |
@@ -162,7 +165,7 @@ Dentro la skill, `$1` e `$2` vengono sostituiti con gli argomenti.
 ### 10. gentle-engram — 8.205 download/mese
 
 | Campo | Valore |
-|-------|--------|
+| ------- | -------- |
 | **Tipo** | extension |
 | **Install** | `pi install npm:gentle-engram` |
 | **Repo** | [github.com/Gentleman-Programming/engram](https://github.com/Gentleman-Programming/engram) |
@@ -177,7 +180,7 @@ Dentro la skill, `$1` e `$2` vengono sostituiti con gli argomenti.
 ### 11. pi-markdown-preview — 7.889 download/mese
 
 | Campo | Valore |
-|-------|--------|
+| ------- | -------- |
 | **Tipo** | package |
 | **Install** | `pi install npm:pi-markdown-preview` |
 | **Repo** | [github.com/omaclaren/pi-markdown-preview](https://github.com/omaclaren/pi-markdown-preview) |
@@ -192,7 +195,7 @@ Dentro la skill, `$1` e `$2` vengono sostituiti con gli argomenti.
 ### 12. cc-safety-net — 7.714 download/mese
 
 | Campo | Valore |
-|-------|--------|
+| ------- | -------- |
 | **Tipo** | package |
 | **Install** | `pi install npm:cc-safety-net` |
 | **Repo** | [github.com/kenryu42/cc-safety-net](https://github.com/kenryu42/cc-safety-net) |
@@ -207,7 +210,7 @@ Dentro la skill, `$1` e `$2` vengono sostituiti con gli argomenti.
 ### 13. bigpowers — 7.677 download/mese
 
 | Campo | Valore |
-|-------|--------|
+| ------- | -------- |
 | **Tipo** | skill |
 | **Install** | `pi install npm:bigpowers` |
 | **Repo** | [github.com/danielvm-git/bigpowers](https://github.com/danielvm-git/bigpowers) |
@@ -230,7 +233,7 @@ Dentro la skill, `$1` e `$2` vengono sostituiti con gli argomenti.
 Per usare server MCP con pi hai **tre opzioni**:
 
 | Opzione | Complessità | Consigliata per |
-|---------|-------------|-----------------|
+| --------- | ------------- | ----------------- |
 | **1. Usare `pi-mcp-extension`** | Bassa | La maggior parte degli utenti |
 | **2. Costruire la tua estensione MCP** | Alta | Esigenze molto specifiche |
 | **3. Usare le Skill invece di MCP** | Media | Tool semplici con README |
@@ -252,7 +255,7 @@ pi -e npm:pi-mcp-extension
 Crea un file di configurazione in una delle due posizioni:
 
 | Posizione | Scope |
-|-----------|-------|
+| ----------- | ------- |
 | `~/.pi/agent/mcp.json` | Globale — tutti i progetti |
 | `.pi/mcp.json` | Progetto — override per-server del globale |
 
@@ -331,7 +334,7 @@ Crea un file di configurazione in una delle due posizioni:
 #### Comandi disponibili
 
 | Comando | Descrizione |
-|---------|-------------|
+| --------- | ------------- |
 | `/mcp` | Mostra lo stato di tutti i server configurati |
 | `/mcp <nome>` | Mostra stato dettagliato e log stderr di un server |
 | `/mcp:start <nome>` | Avvia un server (resetta contatore retry) |
@@ -339,7 +342,7 @@ Crea un file di configurazione in una delle due posizioni:
 
 #### Come funziona (flusso)
 
-```
+```text
 1. Config viene caricato da mcp.json (globale + progetto)
 2. Server "eager": connessi automaticamente a session_start
 3. Server "lazy": aspettano /mcp:start
@@ -353,7 +356,7 @@ Crea un file di configurazione in una delle due posizioni:
 #### Impostazioni globali
 
 | Campo | Tipo | Default | Descrizione |
-|-------|------|---------|-------------|
+| ------- | ------ | --------- | ------------- |
 | `toolPrefix` | string | `"mcp"` | Prefisso per i tool: `<prefix>_<server>_<tool>` |
 | `requestTimeoutMs` | number | `30000` | Timeout per-request in millisecondi |
 | `maxRetries` | number | `5` | Max tentativi di riconnessione (0-10) |
@@ -361,7 +364,7 @@ Crea un file di configurazione in una delle due posizioni:
 #### Impostazioni per-server
 
 | Campo | Tipo | Default | Descrizione |
-|-------|------|---------|-------------|
+| ------- | ------ | --------- | ------------- |
 | `transport` | `"stdio"` \| `"streamable-http"` \| `"sse"` | `"stdio"` | Protocollo di trasporto |
 | `command` | string | — | Eseguibile da spawnare (**obbligatorio** per stdio) |
 | `args` | string[] | `[]` | Argomenti per il comando |
@@ -376,7 +379,7 @@ Crea un file di configurazione in una delle due posizioni:
 L'estensione implementa la specifica **MCP 2025-03-26** (con fallback 2024-11-05):
 
 | Feature | Supporto |
-|---------|----------|
+| --------- | ---------- |
 | Protocollo `2025-03-26` + fallback `2024-11-05` | ✅ |
 | Trasporto `stdio` | ✅ |
 | Trasporto `streamable-http` | ✅ |
@@ -417,6 +420,7 @@ export default function (pi: ExtensionAPI) {
 ```
 
 Gli esempi ufficiali di pi includono già pattern per:
+
 - **`ssh.ts`** — delega tool a macchina remota (simile al concetto di delegare a un server MCP)
 - **`subagent/`** — spawn di sub-agenti con contesto isolato
 - **`dynamic-tools.ts`** — registrazione dinamica di tool a runtime
@@ -430,12 +434,14 @@ Per molti casi d'uso, le **Skill** di pi possono sostituire MCP in modo più sem
 3. L'agente eseguirà i comandi documentati nella skill
 
 **Vantaggi delle Skill rispetto a MCP:**
+
 - Zero dipendenze esterne
 - Non richiedono un server in esecuzione
 - Funzionano con qualsiasi tool CLI esistente
 - Più facili da creare e mantenere
 
 **Svantaggi:**
+
 - Non c'è type safety automatica (JSON Schema)
 - L'agente deve leggere la documentazione e chiamare i comandi "al volo"
 - Meno strutturate per API complesse
@@ -445,7 +451,7 @@ Per molti casi d'uso, le **Skill** di pi possono sostituire MCP in modo più sem
 ## Riepilogo: MCP in pi
 
 | Domanda | Risposta |
-|---------|----------|
+| --------- | ---------- |
 | MCP è built-in in pi? | **No.** Il team lo ha deliberatamente escluso |
 | Posso usare server MCP con pi? | **Sì**, ma serve un'estensione di terze parti |
 | Qual è l'estensione più usata? | `pi-mcp-extension` (8.720 download/mese) |

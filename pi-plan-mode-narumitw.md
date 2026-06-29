@@ -199,7 +199,7 @@ In plan mode, senza alcuna azione tua:
 
 ### 6.3 Confronto sintetico dei modelli di sicurezza
 
-| | 2008muyu (prima) | **narumitw (ora)** |
+|   | 2008muyu (prima) | **narumitw (ora)** |
 | --- | --- | --- |
 | Tool custom in plan mode | **attivi di default** (blacklist) | **disattivati di default** (opt-in) |
 | Manutenzione richiesta | alta (curare `planBlockedTools` per progetto) | **nulla** |

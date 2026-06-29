@@ -34,17 +34,21 @@ Nessun tool per l'LLM.
 ```bash
 pi install npm:pi-powerline-footer
 ```
+
 Config in `~/.pi/agent/settings.json` o `.pi/settings.json`. Zero dipendenze runtime.
 
 ## 🚫 INCOMPATIBILITÀ CON pi 0.79.10 (critico)
 
 I **peerDependencies** richiedono:
-```
+
+```text
 @earendil-works/pi-coding-agent: >=0.74.0 <0.77.0
 @earendil-works/pi-tui:         >=0.74.0 <0.77.0
 @earendil-works/pi-ai:          >=0.74.0 <0.77.0
 ```
+
 Tu hai **pi 0.79.10** → **ESCLUSO** dal range `<0.77.0`. Significa che:
+
 - `pi install` probabilmente lo installa ma con **warning di peer dep non soddisfatta** (npm non blocca di default)
 - A runtime può **non funzionare** o avere bug (API di pi-tui/ai/coding-agent sono cambiate tra 0.76 e 0.79)
 - L'autore non lo ha testato/aggiornato per pi ≥ 0.77

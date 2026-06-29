@@ -31,12 +31,16 @@ Nessuno. I temi non registrano comandi né tool — si selezionano dall'UI di pi
 ```bash
 pi install npm:@spences10/pi-themes
 ```
+
 Poi scegli il tema in uno di questi modi:
+
 - **Interattivo**: `/settings` → seleziona tema
 - **Persistente** in `~/.pi/agent/settings.json`:
+
   ```json
   { "theme": "tokyo-night" }
   ```
+
   (o `~/.config/pi/...` / `.pi/settings.json` project-local)
 
 ## ✅ Sicurezza (perfetta)

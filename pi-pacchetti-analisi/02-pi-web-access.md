@@ -22,6 +22,7 @@ In modalità `auto` (default), ogni capability ha una catena di fallback — qua
 **Comandi slash:** `/search`, `/websearch`, `/curator` (UI di gestione ricerca), `/google-account` (account browser cookie)
 
 **Tool per l'LLM:**
+
 - `web_search({ query })` — ricerca web
 - `fetch_content({ url })` — scarica/estrai contenuto di una URL
 - `get_search_content({ ... })` — combinazione search+fetch
@@ -31,10 +32,13 @@ In modalità `auto` (default), ogni capability ha una catena di fallback — qua
 ```bash
 pi install npm:pi-web-access
 ```
+
 Config API key in `~/.pi/web-search.json` (opzionale — Exa zero-config funziona senza):
+
 ```json
 { "openaiApiKey": "sk-...", "braveApiKey": "BSA_...", "exaApiKey": "exa-...", "perplexityApiKey": "pplx-...", "geminiApiKey": "AIza..." }
 ```
+
 Dipendenze opzionali per frame video: `brew install ffmpeg yt-dlp` (senza, i transcript/descrizioni via Gemini funzionano comunque).
 
 ## ⚠️ Sicurezza

@@ -5,7 +5,7 @@ Progetto di test per pi (coding agent) con documentazione di riferimento e un'es
 ## Contenuto
 
 | Percorso | Descrizione |
-|----------|-------------|
+| ---------- | ------------- |
 | `.pi/extensions/plan-mode/` | Estensione **plan mode** (sola lettura + tracking del piano). Scoperta automaticamente da pi. |
 | `.mcp.json` | Configurazione del server MCP **Google Stitch** via **proxy locale** (workaround per i `$ref` non risolvibili). Richiede `STITCH_API_KEY` + proxy attivo. |
 | `.pi/stitch-proxy/` | Proxy Node.js (e `start-pi.ps1`) che ripulisce gli schema MCP di Stitch rendendoli usabili da pi. Condiviso con OpenCode. |
@@ -38,7 +38,7 @@ Al primo avvio pi chiede di **fidarsi del progetto** perché sono presenti risor
 ### Comandi
 
 | Comando / tasto | Azione |
-|-----------------|--------|
+| ----------------- | -------- |
 | `/plan` | Attiva/disattiva plan mode |
 | `/todos` | Mostra il progresso del piano |
 | `Ctrl+Alt+P` | Attiva/disattiva plan mode |

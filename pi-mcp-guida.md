@@ -43,7 +43,7 @@ Il pacchetto viene registrato in `~/.pi/agent/settings.json` → `"packages": ["
 Registrati dall'adattatore (verificati in `index.ts`):
 
 | Comando | Descrizione |
-|---|---|
+| --- | --- |
 | `/mcp` | Apre il pannello di stato dei server (UI interattiva: elenco server, connessione, gestione). Equivale a `/mcp status`. |
 | `/mcp status` | Come sopra. In modalità non-UI mostra lo stato testuale. |
 | `/mcp reconnect <server>` | Riconnette un server (utile dopo un timeout/idle o un errore). |
@@ -60,7 +60,7 @@ Registrati dall'adattatore (verificati in `index.ts`):
 È il tool principale che l'agente (o tu) usate per scoprire e invocare i tool dei server MCP. Parametri verificati in `index.ts` (riga ~250):
 
 | Parametro | Tipo | Cosa fa |
-|---|---|---|
+| --- | --- | --- |
 | `connect` | `string` | Connette un server (connessione lazy + refresh metadati). |
 | `server` | `string` | Filtra su un server specifico; disambigua anche le chiamate ai tool. |
 | `search` | `string` | Cerca tool per nome/descrizione (sottostringa). |
@@ -73,7 +73,7 @@ Registrati dall'adattatore (verificati in `index.ts`):
 
 ### Esempi
 
-```
+```text
 # scoprire i tool
 mcp({ search: "" })                          # elenca tutti i tool di tutti i server
 mcp({ server: "stitch", search: "" })        # elenca i tool di un server
@@ -114,7 +114,7 @@ Le opzioni di ogni server sono definite in `ServerEntry` (`types.ts`). Il tipo d
 ```
 
 | Campo | Descrizione |
-|---|---|
+| --- | --- |
 | `command` | Eseguibile del transport stdio (es. `npx`, `node`, un path). |
 | `args` | Argomenti del comando. |
 | `env` | Variabili d'ambiente; supporta interpolazione `${VAR}` e `$env:VAR`. |
@@ -133,14 +133,14 @@ Le opzioni di ogni server sono definite in `ServerEntry` (`types.ts`). Il tipo d
 ```
 
 | Campo | Descrizione |
-|---|---|
+| --- | --- |
 | `url` | Endpoint HTTP (transport StreamableHTTP con fallback SSE). |
 | `headers` | Header HTTP; supporta `${VAR}` e `$env:VAR`. |
 
 ### Autenticazione
 
 | Campo | Valori | Descrizione |
-|---|---|---|
+| --- | --- | --- |
 | `auth` | `"oauth"` / `"bearer"` / `false` | Tipo di auth. Se omesso e c'è `url`, OAuth è auto-rilevato. |
 | `bearerToken` | `string` | Token bearer statico (supporta `${VAR}`/`$env:VAR`). |
 | `bearerTokenEnv` | `string` | Nome variabile d'ambiente con il token bearer. |
@@ -151,7 +151,7 @@ Sotto-chiavi di `oauth`: `grantType` (`"authorization_code"` default, o `"client
 ### Lifecycle e comportamento
 
 | Campo | Descrizione |
-|---|---|
+| --- | --- |
 | `lifecycle` | `"lazy"` (default: connette al primo uso, si disconnette dopo `idleTimeout`), `"eager"` (connette all'avvio, niente reconnect), `"keep-alive"` (connette all'avvio + reconnect automatico via health-check). |
 | `idleTimeout` | Minuti di inattività prima della disconnessione (override del globale; `0` per disabilitare). |
 | `directTools` | `true` (registra tutti i tool come tool pi diretti), `["tool_a","tool_b"]` (solo questi), o omesso/`false` (solo proxy). |
@@ -162,7 +162,7 @@ Sotto-chiavi di `oauth`: `grantType` (`"authorization_code"` default, o `"client
 ### Settings globali (chiave `settings`, si applicano a tutti i server)
 
 | Setting | Descrizione |
-|---|---|
+| --- | --- |
 | `toolPrefix` | `"server"` (default), `"short"` (rimuove suffisso `-mcp`), `"none"`. |
 | `idleTimeout` | Timeout idle globale in minuti (default 10). |
 | `directTools` | Default globale per tutti i server (default false). Per-server vince. |
@@ -190,6 +190,7 @@ Le variabili d'ambiente vengono **interpolate** (`${VAR}` e `$env:VAR`) a runtim
 ### Server stdio (Chrome DevTools)
 
 `.mcp.json`:
+
 ```json
 {
   "mcpServers": {
@@ -256,7 +257,7 @@ Le variabili d'ambiente vengono **interpolate** (`${VAR}` e `$env:VAR`) a runtim
 
 **Problema (verificato):** il server MCP di Stitch espone 14 tool ma i loro JSON Schema contengono `$ref` cross-referenziati (es. `#/$defs/ScreenInstance`) non risolvibili dalla radice. L'SDK MCP ufficiale (`@modelcontextprotocol/sdk` 1.29.0) valida gli schema con **Ajv** in fase di `connect` e fallisce:
 
-```
+```text
 can't resolve reference #/$defs/ScreenInstance from id #
 ```
 
@@ -267,6 +268,7 @@ Non è un problema di chiave/rete/protocollo (autenticazione e handshake funzion
 ### Configurazione di pi (già attiva in questo progetto)
 
 `.mcp.json` punta al proxy (non a Stitch diretto):
+
 ```json
 {
   "mcpServers": {
@@ -287,6 +289,7 @@ powershell -File .\.pi\stitch-proxy\start-pi.ps1
 ```
 
 Oppure solo il proxy in background, poi pi a parte:
+
 ```powershell
 Start-Process -WindowStyle Hidden -FilePath node `
   -ArgumentList "$env:USERPROFILE\source\repos\Test\pi-test\.pi\stitch-proxy\stitch-proxy.mjs"
@@ -332,7 +335,7 @@ Poi `/reload` per applicare. Non c'è modo di disconnettere *istantaneamente* vi
 ### Comandi user-facing che coinvolgono la connessione (con caveat)
 
 | Comando | Cosa fa | Va bene per "disconnettere"? |
-|---|---|---|
+| --- | --- | --- |
 | `/mcp reconnect <server>` | `close` + `connect` immediati | ❌ No: riconnette subito |
 | `/mcp logout <server>` | `close` + **rimuove le credenziali OAuth** | ⚠️ Non ideale per Stitch: è pensato per server OAuth. Per Stitch (API key in header, nessuna credenziale OAuth salvata) chiude la connessione, ma il messaggio parla di credenziali OAuth — funziona ma è fuorviante |
 | Pannello `/mcp` → `Ctrl+R` | reconnect del server selezionato | ❌ Come reconnect |
@@ -360,7 +363,7 @@ Imposta `"lifecycle": "keep-alive"` (connette all'avvio + reconnect automatico v
 ## 10. Verifica e risoluzione problemi
 
 | Sintomo | Causa / soluzione |
-|---|---|
+| --- | --- |
 | `/mcp` non esiste | Adattatore non caricato: verifica `pi list` contiene `npm:pi-mcp-adapter`, riavvia pi. |
 | Server "not connected" | Con `lifecycle: lazy` è normale finché non lo usi. Prova `mcp({ connect: "nome" })` o `/mcp reconnect nome`. |
 | `can't resolve reference ... from id #` | Schema non conforme (vedi §8 Stitch). Serve il proxy. |
@@ -371,7 +374,7 @@ Imposta `"lifecycle": "keep-alive"` (connette all'avvio + reconnect automatico v
 ## 11. Stato di verifica
 
 | Elemento | Stato |
-|---|---|
+| --- | --- |
 | Installazione `pi-mcp-adapter` | ✅ verificato (`pi list`, settings, manifest) |
 | Caricamento dell'estensione | ✅ verificato (comandi `/mcp` e tool `mcp` disponibili) |
 | Handshake protocollo MCP + chiave Stitch | ✅ verificato (HTTP 200, `initialize`, 14 tool) |

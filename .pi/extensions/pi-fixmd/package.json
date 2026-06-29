@@ -1,0 +1,24 @@
+{
+  "name": "pi-fixmd",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Estensione pi: comando /fixmd per applicare scripts/fix-markdown.cjs (fix markdown reali).",
+  "type": "module",
+  "pi": {
+    "extensions": [
+      "./index.ts"
+    ]
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": ">=0.75.0"
+  },
+  "peerDependenciesMeta": {
+    "@earendil-works/pi-coding-agent": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.0",
+    "typescript": "^5.0.0"
+  }
+}

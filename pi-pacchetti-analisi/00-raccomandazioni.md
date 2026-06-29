@@ -18,17 +18,20 @@
 Verificati nel codice/metadati:
 
 ### 1.1 🚫 `pi-powerline-footer` ↔ pi 0.79.10 (incompatibilità di versione)
+
 - **Peer dep**: `@earendil-works/pi-coding-agent >=0.74.0 <0.77.0` (e stesso range per pi-tui, pi-ai)
 - **Il tuo pi**: 0.79.10 → **ESCLUSO** dal range `<0.77.0`
 - npm installa comunque (con warning peer dep), ma a runtime può rompersi (API cambiate 0.76→0.79)
 - **Verdetto**: non installare con pi 0.79.10. Se vuoi uno status bar powerline, aspetta un update dell'autore o cerca un fork compatibile.
 
 ### 1.2 ⚠️ `pi-mono-status-line` ↔ `pi-powerline-footer` (conflitto footer)
+
 - Entrambi chiamano `ctx.ui.setFooter()`, che **sostituisce** il footer
 - Solo un'estensione può "possedere" il footer: l'ultima caricata vince, o si sovrascrivono a vicenda
 - **Verdetto**: scegline **uno solo**. (Comunque `pi-powerline-footer` è già escluso da 1.1, quindi su pi 0.79.10 la scelta cade su `pi-mono-status-line`.)
 
 ### 1.3 ⚠️ `@juicesharp/rpiv-todo` ↔ nostra `plan-mode` locale (conflitto comando `/todos`)
+
 - La nostra estensione `.pi/extensions/plan-mode/index.ts` registra `/todos` (riga 149)
 - `rpiv-todo` registra anch'essa il comando `/todos` (`COMMAND_NAME = "todos"`)
 - pi li rinominerebbe in `/todos:1` e `/todos:2` (comportamento documentato di pi)
@@ -39,21 +42,25 @@ Verificati nel codice/metadati:
 Non sono conflitti tecnici, ma **sovrapposizioni funzionali** — installare entrambi è inutile o confuso:
 
 ### 2.1 Auto-formattazione: `pi-lens` ↔ `pi-autoformat` (gotgenes)
+
 - `pi-lens` formatta su write/edit come parte della sua pipeline (Biome/Ruff/ESLint/stylelint/sqlfluff/RuboCop + secret scan + LSP)
 - `pi-autoformat` (del monorepo gotgenes, analizzato in precedenza) fa solo formattazione su write/edit
 - **Verdetto**: se installi `pi-lens`, **non** installare `pi-autoformat` (ridondanza + possibili doppi format). `pi-lens` è il soprammobile.
 
 ### 2.2 Web search/access: `pi-web-access` ↔ server MCP di search (via `pi-mcp-adapter`)
+
 - `pi-web-access` offre search + fetch + PDF + video
 - Un server MCP di search (Firecrawl, Exa MCP) via `pi-mcp-adapter` copre in parte la stessa superficie
 - Nota: `pi-web-access` **usa già Exa MCP zero-config** internamente — se hai anche `pi-mcp-adapter` con Exa configurato, hai **doppione**
 - **Verdetto**: scegli un approccio per il web. `pi-web-access` è più completo (PDF, video, GitHub clone, fallback chain); MCP search è più componibile con altre integrazioni. **Non entrambi** per la stessa funzione.
 
 ### 2.3 Todo/plan tracking: `rpiv-todo` ↔ plan-mode con todo (nostra / 2008muyu)
+
 - Tre modi di tracciare task: `rpiv-todo` (todo overlay persistente), la nostra plan-mode (todo + execution mode), `@2008muyu/pi-plan` (task tracking su disco)
 - **Verdetto**: un solo sistema di tracking. Mescolarli confonde il modello.
 
 ### 2.4 Temi: `@spences10/pi-themes` ↔ temi inclusi in altri pacchetti
+
 - `pi-studio` porta `pi-studio-dark`/`pi-studio-light`
 - Altri pacchetti possono includere temi propri
 - **Non è un conflitto**: i temi si **sommano** in `/settings`. Ma se non usi pi-studio, i suoi temi non si attivano. `pi-themes` è complementare, non ridondante.
@@ -63,7 +70,7 @@ Non sono conflitti tecnici, ma **sovrapposizioni funzionali** — installare ent
 Su **pi 0.79.10** (con la nostra configurazione attuale: plan-mode locale + pi-mcp-adapter + Stitch proxy):
 
 | Pacchetto | Compatibile 0.79.10 | Conflitto con nostro setup | Superficie sicurezza |
-|---|:-:|---|:-:|
+| --- | :-: | --- | :-: |
 | **pi-lens** | ✅ | auto-format overlap con pi-autoformat (se installato) | 🟡 alta (auto-install 22 tool) |
 | **pi-web-access** | ✅ | overlap con MCP search (pi-mcp-adapter+Exa) | 🟡 media (rete, SSRF ok) |
 | **rpiv-todo** | ✅ | ⚠️ comando `/todos` vs nostra plan-mode | 🟢 bassa (nessuna) |
@@ -86,7 +93,9 @@ Per chi vuole solo migliorare l'aspetto e avere info utili in footer, zero super
 pi install npm:@spences10/pi-themes
 pi install npm:pi-mono-status-line
 ```
+
 Config:
+
 ```jsonc
 // ~/.pi/agent/settings.json
 { "theme": "tokyo-night", "packages": ["npm:@spences10/pi-themes", "npm:pi-mono-status-line"] }
@@ -94,6 +103,7 @@ Config:
 // ~/.pi/agent/status-line.json
 { "mode": "basic" }   // zero polling rete
 ```
+
 **Perché**: pi-themes è solo asset (sicurezza nulla), pi-mono-status-line basic non fa rete. Costo totale: ~zero superficie. Ideale se non vuoi pensare alla sicurezza.
 
 ### Profilo B — "Sviluppo equilibrato" (raccomandato)
@@ -105,15 +115,18 @@ pi install npm:@spences10/pi-themes
 pi install npm:pi-mono-status-line
 pi install npm:pi-lens
 ```
+
 ⚠️ **Pre-requisito di coerenza**: se usi questo profilo, **rimuovi** `pi-autoformat` se lo avevi (ridondanza 2.1). Non installare altri status-bar.
 
 Config:
+
 ```jsonc
 // ~/.pi/agent/settings.json
 { "theme": "catppuccin-mocha", "packages": ["npm:@spences10/pi-themes", "npm:pi-mono-status-line", "npm:pi-lens"] }
 // ~/.pi/agent/status-line.json
 { "mode": "expert" }   // se sei su subscription e vuoi le quote; altrimenti "basic"
 ```
+
 **Accetta**: pi-lens auto-installa 22 tool linter globalmente (superficie). Se ti va bene, è il profilo più produttivo.
 
 ### Profilo C — "Sviluppo + web" (ricerca e fetch)
@@ -126,9 +139,11 @@ pi install npm:pi-mono-status-line
 pi install npm:pi-lens
 pi install npm:pi-web-access
 ```
+
 ⚠️ **Coerenza**: non configurare anche un server MCP di search via pi-mcp-adapter (redundanza 2.2). `pi-web-access` copre search+fetch+PDF+video. Mantieni pi-mcp-adapter solo per Stitch (caso d'uso diverso).
 
 Config web access in `~/.pi/web-search.json` (opzionale — Exa zero-config funziona senza):
+
 ```json
 { "exaApiKey": "exa-..." }
 ```
@@ -141,6 +156,7 @@ Per chi vuole un postazione browser con preview/REPL/annotation invece del solo 
 pi install npm:@spences10/pi-themes
 pi install npm:pi-studio
 ```
+
 **Accetta**: pi-studio cambia radicalmente la UX (server web locale + CDN + 9MB). Ideale per documentazione, notebook literate, chi viene da Jupyter.
 **Combinazione con pi-lens**: possibile (pi-lens feedback + pi-studio workspace) ma pesante; valuta se ti serve entrambi.
 
@@ -149,7 +165,7 @@ pi install npm:pi-studio
 Ordinati dal più sicuro al più "esposto":
 
 | Pacchetto | Superficie | Note |
-|---|---|---|
+| --- | --- | --- |
 | `@spences10/pi-themes` | 🟢 nulla | solo asset statici |
 | `rpiv-todo` | 🟢 nulla | nessun exec/rete/server |
 | `pi-mono-status-line` (basic) | 🟢 nulla | solo stats locali |
@@ -164,7 +180,7 @@ Ordinati dal più sicuro al più "esposto":
 ## 6. Decisione rapida
 
 | Vuoi... | Installa |
-|---|---|
+| --- | --- |
 | Solo migliorare l'estetica, zero rischio | **pi-themes** |
 | Footer più ricco (git/costo/context) | **pi-mono-status-line** (mode: basic o expert) |
 | Feedback codice in tempo reale (IDE-like) | **pi-lens** (+ rimuovi pi-autoformat) |
@@ -191,6 +207,7 @@ Per un utente che sviluppa seriamente su pi 0.79.10 senza takeover UX eccessivo:
 // ~/.pi/agent/status-line.json
 { "mode": "basic" }
 ```
+
 Mantieni il tuo setup MCP (pi-mcp-adapter + Stitch proxy) e la tua plan-mode locale. **Non** installare: pi-powerline-footer (incompatibile), pi-autoformat (ridondante con pi-lens), rpiv-todo (conflitto /todos con la tua plan-mode), altri footer ext.
 
 ---

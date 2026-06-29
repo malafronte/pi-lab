@@ -110,14 +110,14 @@ Espone tool per gestire i **metadati della sessione** corrente: darle un nome le
 #### Tool introdotti
 
 | Tool | Descrizione |
-|---|---|
+| --- | --- |
 | `set_session_name` | Imposta il nome visualizzato della sessione corrente |
 | `get_session_name` | Restituisce il nome della sessione, se impostato |
 | `read_session` | Legge gli entry della sessione corrente come transcript |
 
 #### Esempio 1 — nominare la sessione
 
-```
+```text
 set_session_name({ name: "#42 Planning — Extract ExtensionPaths" })
 ```
 
@@ -125,7 +125,7 @@ Formato stage-encoded suggerito: `#N Planning — <title>`, `#N TDD — <title>`
 
 #### Esempio 2 — leggere il transcript (utile per retro/cross-session)
 
-```
+```text
 read_session({ types: ["message", "compaction"], limit: 20 })
 ```
 
@@ -133,7 +133,7 @@ Restituisce un transcript leggibile (turni numerati user/assistant, riassunti on
 
 Esempio di output:
 
-```
+```text
 1. user
 How do I fix the login bug?
 ---
@@ -169,7 +169,7 @@ Senza il binario `colgrep` installato, il tool si disabilita con un messaggio *"
 #### Comandi/tool introdotti
 
 | Tool/Cmd | Descrizione |
-|---|---|
+| --- | --- |
 | `colgrep` (tool) | Ricerca semantica di codice |
 | `/colgrep-reindex` | Costruisce/aggiorna l'indice su richiesta |
 
@@ -178,12 +178,12 @@ Senza il binario `colgrep` installato, il tool si disabilita con un messaggio *"
 File JSON, project override global:
 
 | Scope | Path |
-|---|---|
+| --- | --- |
 | Globale | `<agentDir>/extensions/pi-colgrep/config.json` |
 | Progetto | `<cwd>/.pi/extensions/pi-colgrep/config.json` |
 
 | Chiave | Tipo | Default | Descrizione |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `indexOnStartup` | boolean | `true` | Costruisci l'indice in background all'avvio. `false` = indicizzazione lazy al primo search o via `/colgrep-reindex` |
 
 #### Esempio 1 — disabilitare l'indicizzazione all'avvio (directory grande/non-code)
@@ -275,7 +275,7 @@ Sostituisce il polling ad-hoc della `gh` CLI con tool **deterministici**: backof
 
 #### Esempio 1 — aspettare che appaia una run CI per uno SHA
 
-```
+```text
 ci_find({ workflow: "ci", expected_sha: "abc123...40char", timeout: 120 })
 ```
 
@@ -298,19 +298,19 @@ Il tipico workflow (passo-passo, l'agente usa i tool in sequenza):
 
 Esempio concreto di chiamata singola — chiudere un'issue con commento:
 
-```
+```text
 issue_close({ issue_number: 42, comment: "Fixed in v1.2.0", reason: "completed" })
 ```
 
 #### Configurazione (opzionale)
 
 | Scope | Path |
-|---|---|
+| --- | --- |
 | Globale | `~/.pi/agent/extensions/pi-github-tools/config.json` |
 | Progetto | `<cwd>/.pi/extensions/pi-github-tools/config.json` |
 
 | Chiave | Default | Descrizione |
-|---|---|---|
+| --- | --- | --- |
 | `defaultMergeMethod` | `"merge"` | Strategia di merge per `release_pr_merge`: `"rebase"`, `"squash"`, `"merge"` |
 
 ---
@@ -328,7 +328,7 @@ Porta i **sub-agent autonomi in stile Claude Code** a pi, **in-process** (creano
 #### Agent types predefiniti
 
 | Tipo | Tool | Modello | Descrizione |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `general-purpose` | tutti 7 | inherit | "Parent twin": eredita il system prompt completo del parent |
 | `Explore` | read, bash, grep, find, ls | haiku (fallback inherit) | Esplorazione veloce read-only |
 | `Plan` | read, bash, grep, find, ls | inherit | Architetto per planning implementativo read-only |
@@ -362,7 +362,7 @@ Campi frontmatter (tutti opzionali): `description`, `display_name`, `tools` (lis
 #### Tool introdotti
 
 | Tool | Descrizione |
-|---|---|
+| --- | --- |
 | `subagent` | Lancia un sub-agent |
 | `get_subagent_result` | Stato/risultato di un agent background |
 | `steer_subagent` | Invia un messaggio di steering a un agent in esecuzione |
@@ -370,13 +370,13 @@ Campi frontmatter (tutti opzionali): `description`, `display_name`, `tools` (lis
 #### Comandi introdotti
 
 | Comando | Descrizione |
-|---|---|
+| --- | --- |
 | `/subagents:settings` | Configura (concurrency, turn limit, grace turns) — persiste tra riavvii |
 | `/subagents:sessions` | Visualizza il transcript di una sessione subagent (read-only) |
 
 #### Esempio 1 — esplorazione in background
 
-```
+```text
 subagent({
   subagent_type: "Explore",
   prompt: "Find all files that handle authentication",
@@ -391,13 +391,13 @@ Ritorna subito un ID; il widget sopra l'editor mostra l'attività live (turni, t
 
 Lancia l'auditor personalizzato (definito sopra):
 
-```
+```text
 subagent({ subagent_type: "auditor", prompt: "Review the auth module", description: "Security audit" })
 ```
 
 Mentre gira, puoi reindirizzarlo senza riavviarlo:
 
-```
+```text
 steer_subagent({ agent_id: "...", message: "Focus also on rate limiting and JWT validation" })
 ```
 
@@ -439,7 +439,7 @@ Nessuno. Espone solo un `WorkspaceProvider` (si attiva in base alla config). Nes
 Isolamento **opt-in per tipo di agent**. File JSON:
 
 | Scope | Path |
-|---|---|
+| --- | --- |
 | Globale | `~/.pi/agent/subagents-worktrees.json` |
 | Progetto | `<cwd>/.pi/subagents-worktrees.json` (override) |
 
@@ -521,7 +521,7 @@ File `~/.pi/agent/extensions/pi-permission-system/config.json` (globale) o `.pi/
 #### Comandi introdotti
 
 | Comando | Descrizione |
-|---|---|
+| --- | --- |
 | `/permission-system` | UI di configurazione (policy, auto-approve, forwarding subagent) |
 
 #### Esempio 1 — policy base (allow di default, deny su .env, ask su git/rm/sudo, esterni in ask)
@@ -563,7 +563,7 @@ Se conosci il sistema di permessi di OpenCode, **ti senti subito a casa**: pi-pe
 **Cosa è IDENTICO** (passa 1:1):
 
 | Concetto | Descrizione |
-|---|---|
+| --- | --- |
 | 3 azioni | `allow` / `ask` / `deny` — identiche |
 | Oggetto `permission` flat | chiave top-level del config |
 | `"*"` fallback universale | default quando nessuna regola matcha |
@@ -582,7 +582,7 @@ Se conosci il sistema di permessi di OpenCode, **ti senti subito a casa**: pi-pe
 **Dove DIVERGONO** (differenze da conoscere):
 
 | Area | OpenCode | pi-permission-system |
-|---|---|---|
+| --- | --- | --- |
 | **Default** | `"*": "allow"` (permissivo) | `"*": "ask"` (least privilege) |
 | **Protezione `.env`** | regole `read` built-in | nessuna built-in (usi la surface `path` cross-tool) |
 | **`path` cross-tool** | ❌ non esiste | ✅ surface `path` che nega/ask su **tutti** i tool e bash insieme (un deny qui non è scavalcabile da un allow per-tool) |
@@ -601,7 +601,7 @@ Se conosci il sistema di permessi di OpenCode, **ti senti subito a casa**: pi-pe
 
 ##### Esempio di porting (config OpenCode → pi-permission-system)
 
-**Prima (OpenCode):**
+### Prima (OpenCode)
 
 ```json
 {
@@ -614,7 +614,7 @@ Se conosci il sistema di permessi di OpenCode, **ti senti subito a casa**: pi-pe
 }
 ```
 
-**Dopo (pi-permission-system):**
+### Dopo (pi-permission-system)
 
 ```jsonc
 {
@@ -677,7 +677,7 @@ E in `settings.json`, ordine corretto:
 ### Per necessità verticali
 
 | Se vuoi... | Installa | Prerequisito |
-|---|---|---|
+| --- | --- | --- |
 | Sub-agent paralleli | `pi-subagents` (+ `pi-subagents-worktrees`) | nessuno |
 | Governance permessi | `pi-permission-system` | nessuno |
 | Anti-fastidi a basso costo | `pi-nocd` + `pi-session-tools` | nessuno |

@@ -93,7 +93,7 @@ pi -e ./my-extension.ts
 Le estensioni sono scoperte automaticamente da posizioni fidate. Quelle in `.pi/extensions` vengono caricate solo dopo che il progetto è stato considerato trusted.
 
 | Posizione | Scope |
-|-----------|-------|
+| ----------- | ------- |
 | `~/.pi/agent/extensions/*.ts` | Globale (tutti i progetti) |
 | `~/.pi/agent/extensions/*/index.ts` | Globale (sottodirectory) |
 | `.pi/extensions/*.ts` | Locale al progetto |
@@ -119,7 +119,7 @@ Percorsi aggiuntivi via `settings.json`:
 ## Import disponibili
 
 | Pacchetto | Scopo |
-|-----------|-------|
+| ----------- | ------- |
 | `@earendil-works/pi-coding-agent` | Tipi delle estensioni (`ExtensionAPI`, `ExtensionContext`, eventi) |
 | `typebox` | Definizione schema per parametri dei tool |
 | `@earendil-works/pi-ai` | Utility AI (`StringEnum` per enum compatibili con Google) |
@@ -185,13 +185,15 @@ Le factory possono girare in esecuzioni che non avviano mai una sessione. **Non 
 ### Stili di estensione
 
 **File singolo** - per estensioni semplici:
-```
+
+```text
 ~/.pi/agent/extensions/
 └── my-extension.ts
 ```
 
 **Directory con index.ts** - per estensioni multi-file:
-```
+
+```text
 ~/.pi/agent/extensions/
 └── my-extension/
     ├── index.ts        # Entry point
@@ -200,7 +202,8 @@ Le factory possono girare in esecuzioni che non avviano mai una sessione. **Non 
 ```
 
 **Pacchetto con dipendenze** - per estensioni con pacchetti npm:
-```
+
+```text
 ~/.pi/agent/extensions/
 └── my-extension/
     ├── package.json
@@ -216,7 +219,7 @@ Le factory possono girare in esecuzioni che non avviano mai una sessione. **Non 
 
 ### Panoramica del ciclo di vita
 
-```
+```text
 pi si avvia
   │
   ├─► project_trust (solo estensioni user/global e CLI, prima del caricamento risorse)
@@ -257,6 +260,7 @@ exit (Ctrl+C, Ctrl+D, SIGHUP, SIGTERM)
 ### Eventi di avvio
 
 #### `project_trust`
+
 Attivato prima che pi decida se fidarsi di un progetto con config dinamiche (`.pi` o `.agents/skills`).
 
 ```typescript
@@ -269,6 +273,7 @@ pi.on("project_trust", async (event, ctx) => {
 ```
 
 #### `resources_discover`
+
 Dopo `session_start`, per contribuire percorsi di skill, prompt e temi.
 
 ```typescript
@@ -284,6 +289,7 @@ pi.on("resources_discover", async (event, _ctx) => {
 ### Eventi di sessione
 
 #### `session_start`
+
 Attivato quando una sessione viene avviata, caricata o ricaricata.
 
 ```typescript
@@ -294,6 +300,7 @@ pi.on("session_start", async (event, ctx) => {
 ```
 
 #### `session_before_switch`
+
 Prima di avviare una nuova sessione (`/new`) o cambiare sessione (`/resume`).
 
 ```typescript
@@ -306,6 +313,7 @@ pi.on("session_before_switch", async (event, ctx) => {
 ```
 
 #### `session_before_fork`
+
 Attivato durante `/fork` o `/clone`.
 
 ```typescript
@@ -315,6 +323,7 @@ pi.on("session_before_fork", async (event, ctx) => {
 ```
 
 #### `session_before_compact` / `session_compact`
+
 Attivati durante la compattazione.
 
 ```typescript
@@ -333,6 +342,7 @@ pi.on("session_before_compact", async (event, ctx) => {
 ```
 
 #### `session_shutdown`
+
 Prima che il runtime della sessione venga smantellato. Per cleanup.
 
 ```typescript
@@ -344,6 +354,7 @@ pi.on("session_shutdown", async (event, ctx) => {
 ### Eventi dell'agente
 
 #### `before_agent_start`
+
 Dopo l'invio del prompt, prima del loop dell'agente. Può iniettare messaggi e modificare il system prompt.
 
 ```typescript
@@ -360,6 +371,7 @@ pi.on("before_agent_start", async (event, ctx) => {
 ```
 
 #### `agent_start` / `agent_end`
+
 Attivati una volta per ogni prompt utente.
 
 ```typescript
@@ -370,6 +382,7 @@ pi.on("agent_end", async (event, ctx) => {
 ```
 
 #### `turn_start` / `turn_end`
+
 Per ogni turno (una risposta LLM + chiamate tool).
 
 ```typescript
@@ -379,12 +392,15 @@ pi.on("turn_start", async (event, ctx) => {
 ```
 
 #### `message_start` / `message_update` / `message_end`
+
 Ciclo di vita dei messaggi. `message_end` può restituire `{ message }` per sostituire il messaggio finalizzato.
 
 #### `tool_execution_start` / `tool_execution_update` / `tool_execution_end`
+
 Ciclo di vita dell'esecuzione dei tool.
 
 #### `context`
+
 Prima di ogni chiamata LLM. Può modificare i messaggi in modo non distruttivo.
 
 ```typescript
@@ -395,6 +411,7 @@ pi.on("context", async (event, ctx) => {
 ```
 
 #### `before_provider_request`
+
 Dopo la costruzione del payload, prima dell'invio della richiesta. Utile per debugging.
 
 ```typescript
@@ -404,6 +421,7 @@ pi.on("before_provider_request", (event, ctx) => {
 ```
 
 #### `after_provider_response`
+
 Dopo la ricezione della risposta HTTP, prima del consumo dello stream.
 
 ```typescript
@@ -417,6 +435,7 @@ pi.on("after_provider_response", (event, ctx) => {
 ### Eventi del modello
 
 #### `model_select`
+
 Quando il modello cambia via `/model`, `Ctrl+P` o restore sessione.
 
 ```typescript
@@ -426,6 +445,7 @@ pi.on("model_select", async (event, ctx) => {
 ```
 
 #### `thinking_level_select`
+
 Quando cambia il livello di thinking. Solo notifica.
 
 ```typescript
@@ -437,6 +457,7 @@ pi.on("thinking_level_select", async (event, ctx) => {
 ### Eventi dei tool
 
 #### `tool_call`
+
 Prima che il tool venga eseguito. **Può bloccare.** `event.input` è mutabile.
 
 ```typescript
@@ -452,6 +473,7 @@ pi.on("tool_call", async (event, ctx) => {
 ```
 
 #### `tool_result`
+
 Dopo l'esecuzione del tool. **Può modificare il risultato.**
 
 ```typescript
@@ -463,6 +485,7 @@ pi.on("tool_result", async (event, ctx) => {
 ### Eventi bash utente
 
 #### `user_bash`
+
 Quando l'utente esegue comandi `!` o `!!`. Può intercettare.
 
 ```typescript
@@ -476,6 +499,7 @@ pi.on("user_bash", (event, ctx) => {
 ### Eventi di input
 
 #### `input`
+
 Quando l'input utente viene ricevuto, prima dell'espansione di skill e template.
 
 ```typescript
@@ -502,12 +526,15 @@ pi.on("input", async (event, ctx) => {
 ## ExtensionAPI - Metodi
 
 ### `pi.on(event, handler)`
+
 Sottoscrivi agli eventi del ciclo di vita.
 
 ### `pi.registerTool(definition)`
+
 Registra un tool personalizzato chiamabile dall'LLM. Vedi [Custom Tools](#custom-tools).
 
 ### `pi.registerCommand(name, options)`
+
 Registra un comando `/name`.
 
 ```typescript
@@ -534,6 +561,7 @@ pi.registerCommand("deploy", {
 ```
 
 ### `pi.registerShortcut(shortcut, options)`
+
 Registra una scorciatoia da tastiera.
 
 ```typescript
@@ -546,6 +574,7 @@ pi.registerShortcut("ctrl+shift+p", {
 ```
 
 ### `pi.registerFlag(name, options)`
+
 Registra un flag CLI.
 
 ```typescript
@@ -559,6 +588,7 @@ if (pi.getFlag("plan")) { /* ... */ }
 ```
 
 ### `pi.sendMessage(message, options?)`
+
 Inietta un messaggio personalizzato nella sessione.
 
 ```typescript
@@ -574,6 +604,7 @@ pi.sendMessage({
 ```
 
 ### `pi.sendUserMessage(content, options?)`
+
 Invia un messaggio utente all'agente (appare come se digitato dall'utente). Attiva sempre un turno.
 
 ```typescript
@@ -582,6 +613,7 @@ pi.sendUserMessage("Focus on error handling", { deliverAs: "steer" });
 ```
 
 ### `pi.appendEntry(customType, data?)`
+
 Persiste stato dell'estensione.
 
 ```typescript
@@ -589,12 +621,15 @@ pi.appendEntry("my-state", { count: 42 });
 ```
 
 ### `pi.setSessionName(name)` / `pi.getSessionName()`
+
 Imposta/ottieni il nome visualizzato della sessione.
 
 ### `pi.setLabel(entryId, label)`
+
 Imposta/rimuovi un'etichetta su un entry per la navigazione `/tree`.
 
 ### `pi.registerProvider(name, config)`
+
 Registra o sovrascrivi un provider di modelli.
 
 ```typescript
@@ -608,9 +643,11 @@ pi.registerProvider("my-proxy", {
 ```
 
 ### `pi.unregisterProvider(name)`
+
 Rimuove un provider precedentemente registrato.
 
 ### `pi.getActiveTools()` / `pi.getAllTools()` / `pi.setActiveTools(names)`
+
 Gestisci i tool attivi.
 
 ```typescript
@@ -620,9 +657,11 @@ pi.setActiveTools(["read", "bash"]);       // Imposta solo lettura
 ```
 
 ### `pi.setModel(model)` / `pi.getThinkingLevel()` / `pi.setThinkingLevel(level)`
+
 Controllo modello e livello di thinking.
 
 ### `pi.events`
+
 Event bus condiviso per comunicazione tra estensioni:
 
 ```typescript
@@ -631,6 +670,7 @@ pi.events.emit("my:event", { ... });
 ```
 
 ### `pi.exec(command, args, options?)`
+
 Esegue un comando shell.
 
 ```typescript
@@ -676,10 +716,10 @@ pi.registerTool({
 ```
 
 > **Importante:** Usa `StringEnum` da `@earendil-works/pi-ai` per gli enum. `Type.Union`/`Type.Literal` non funziona con l'API di Google.
-
 > **Segnalare errori:** Lancia un'eccezione da `execute()` per marcare `isError: true`. Restituire un valore non imposta mai il flag di errore.
 
 ### `prepareArguments(args)`
+
 Compatibilità con vecchie shape di argomenti. Opzionale. Eseguito prima della validazione.
 
 ```typescript
@@ -925,7 +965,7 @@ theme.italic(text)            // Corsivo
 ### Modalità
 
 | Modalità | `ctx.mode` | `ctx.hasUI` | Note |
-|----------|------------|-------------|------|
+| ---------- | ------------ | ------------- | ------ |
 | Interattiva | `"tui"` | `true` | TUI completo |
 | RPC | `"rpc"` | `true` | Dialoghi via protocollo JSON |
 | JSON | `"json"` | `false` | Event stream su stdout |
@@ -940,8 +980,9 @@ Usa `ctx.mode === "tui"` per feature TUI-only. Usa `ctx.hasUI` per metodi dialog
 Tutti in `examples/extensions/` della directory di installazione di pi.
 
 ### 🔒 Sicurezza & Lifecycle
+
 | Estensione | Descrizione | API chiave |
-|------------|-------------|------------|
+| ------------ | ------------- | ------------ |
 | `permission-gate.ts` | Conferma prima di comandi bash pericolosi | `tool_call`, `ui.confirm` |
 | `protected-paths.ts` | Blocca scritture su `.env`, `.git/`, `node_modules/` | `tool_call` |
 | `confirm-destructive.ts` | Conferma azioni distruttive sulla sessione | `session_before_switch`, `session_before_fork` |
@@ -949,8 +990,9 @@ Tutti in `examples/extensions/` della directory di installazione di pi.
 | `project-trust.ts` | Dimostra evento `project_trust` | `project_trust` |
 
 ### 🛠️ Custom Tools
+
 | Estensione | Descrizione | API chiave |
-|------------|-------------|------------|
+| ------------ | ------------- | ------------ |
 | `hello.ts` | Tool minimale | `registerTool` |
 | `todo.ts` | Todo list persistente con rendering | `registerTool`, `appendEntry`, `renderResult` |
 | `question.ts` | Tool con interazione utente | `registerTool`, `ui.select` |
@@ -963,8 +1005,9 @@ Tutti in `examples/extensions/` della directory di installazione di pi.
 | `subagent/` | Sub-agenti con contesto isolato | `registerTool`, `exec` |
 
 ### 🎮 Comandi & UI
+
 | Estensione | Descrizione | API chiave |
-|------------|-------------|------------|
+| ------------ | ------------- | ------------ |
 | `preset.ts` | Preset nominati (modello, tool, thinking) | `registerCommand`, `setModel`, `setActiveTools` |
 | `plan-mode/` | Modalità plan (sola lettura, step tracking) | Tutti i tipi di evento |
 | `tools.ts` | UI per abilitare/disabilitare tool | `registerCommand`, `setActiveTools` |
@@ -989,15 +1032,17 @@ Tutti in `examples/extensions/` della directory di installazione di pi.
 | `input-transform-streaming.ts` | Transform input con streaming behavior | `input`, `streamingBehavior` |
 
 ### 🔄 Git
+
 | Estensione | Descrizione | API chiave |
-|------------|-------------|------------|
+| ------------ | ------------- | ------------ |
 | `git-checkpoint.ts` | Stash git a ogni turno | `turn_start`, `session_before_fork`, `exec` |
 | `auto-commit-on-exit.ts` | Auto-commit all'uscita | `session_shutdown`, `exec` |
 | `git-merge-and-resolve.ts` | Fetch, merge e risoluzione conflitti | `agent_end`, `exec`, `sendUserMessage` |
 
 ### 📝 System Prompt & Compaction
+
 | Estensione | Descrizione | API chiave |
-|------------|-------------|------------|
+| ------------ | ------------- | ------------ |
 | `pirate.ts` | Modifica system prompt per turno | `registerCommand`, `before_agent_start` |
 | `claude-rules.ts` | Scansiona `.claude/rules/` nel system prompt | `before_agent_start` |
 | `custom-compaction.ts` | Compaction personalizzato | `session_before_compact` |
@@ -1005,14 +1050,16 @@ Tutti in `examples/extensions/` della directory di installazione di pi.
 | `prompt-customizer.ts` | Guida tool context-aware | `before_agent_start`, `systemPromptOptions` |
 
 ### 🔌 Provider personalizzati
+
 | Estensione | Descrizione | API chiave |
-|------------|-------------|------------|
+| ------------ | ------------- | ------------ |
 | `custom-provider-anthropic/` | Provider Anthropic con OAuth | `registerProvider` |
 | `custom-provider-gitlab-duo/` | GitLab Duo con OAuth | `registerProvider` |
 
 ### 🖥️ Sistema & Sandbox
+
 | Estensione | Descrizione | API chiave |
-|------------|-------------|------------|
+| ------------ | ------------- | ------------ |
 | `mac-system-theme.ts` | Sincronizza tema con macOS | `setTheme`, `exec` |
 | `interactive-shell.ts` | Shell persistente per comandi interattivi | `user_bash` |
 | `sandbox/` | Sandbox a livello OS | Tool operations |
@@ -1021,8 +1068,9 @@ Tutti in `examples/extensions/` della directory di installazione di pi.
 | `file-trigger.ts` | File watcher che inietta contenuti | `sendMessage` |
 
 ### 📦 Varie
+
 | Estensione | Descrizione | API chiave |
-|------------|-------------|------------|
+| ------------ | ------------- | ------------ |
 | `message-renderer.ts` | Rendering messaggi custom | `registerMessageRenderer`, `sendMessage` |
 | `event-bus.ts` | Comunicazione inter-estensione | `pi.events` |
 | `session-name.ts` | Nomi sessione per il selettore | `setSessionName` |
@@ -1044,6 +1092,7 @@ Tutti in `examples/extensions/` della directory di installazione di pi.
 ## Best Practice
 
 ### 1. Usa `StringEnum` per i parametri enum
+
 ```typescript
 // ✅ Corretto
 action: StringEnum(["list", "add"] as const)
@@ -1053,6 +1102,7 @@ action: Type.Union([Type.Literal("list"), Type.Literal("add")])
 ```
 
 ### 2. Persisti lo stato nei `details` dei risultati
+
 ```typescript
 return {
   content: [{ type: "text", text: "Done" }],
@@ -1071,6 +1121,7 @@ pi.on("session_start", async (_event, ctx) => {
 ```
 
 ### 3. Avvia risorse long-lived in `session_start`, non nella factory
+
 ```typescript
 // ❌ Non fare questo nella factory
 const server = startServer();
@@ -1081,12 +1132,15 @@ pi.on("session_shutdown", async () => { server?.close(); });
 ```
 
 ### 4. Usa `withFileMutationQueue` se il tool modifica file
+
 Per evitare race condition con `edit` e `write` in esecuzione parallela.
 
 ### 5. Tronca sempre l'output dei tool
+
 Limite: 50KB / 2000 righe. Usa `truncateHead` o `truncateTail`.
 
 ### 6. Nelle `promptGuidelines`, nomina sempre il tool
+
 ```typescript
 // ✅ Corretto
 promptGuidelines: ["Usa my_tool quando l'utente chiede di gestire todo."]
@@ -1096,6 +1150,7 @@ promptGuidelines: ["Usa questo tool quando..."]
 ```
 
 ### 7. Usa `ctx.mode === "tui"` per feature TUI-only
+
 ```typescript
 if (ctx.mode === "tui") {
   await ctx.ui.custom(...);
@@ -1103,6 +1158,7 @@ if (ctx.mode === "tui") {
 ```
 
 ### 8. Non riusare oggetti catturati dopo session replacement
+
 ```typescript
 // ❌ Unsafe
 const oldSm = ctx.sessionManager;
@@ -1122,12 +1178,14 @@ await ctx.newSession({
 ```
 
 ### 9. Usa `CONFIG_DIR_NAME` invece di hardcodare `.pi`
+
 ```typescript
 import { CONFIG_DIR_NAME } from "@earendil-works/pi-coding-agent";
 const projectConfigPath = join(ctx.cwd, CONFIG_DIR_NAME, "my-extension.json");
 ```
 
 ### 10. Segnala errori lanciando eccezioni, non restituendo valori
+
 ```typescript
 // ✅ Corretto
 async execute() {

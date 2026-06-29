@@ -29,6 +29,7 @@ Trasforma l'interazione con pi in una **postazione di lavoro in browser**: invec
 ## Comandi e tool
 
 **Comandi slash:**
+
 - `/studio` — apri con ultima risposta (fallback: vuoto)
 - `/studio <path>` — apri con file precaricato
 - `/studio --last` / `--blank` / `--no-browser` / `--port <port>`
@@ -41,6 +42,7 @@ Trasforma l'interazione con pi in una **postazione di lavoro in browser**: invec
 ```bash
 pi install npm:pi-studio
 ```
+
 Dipendenze: `@earendil-works/pi-ai`, `@sinclair/typebox`, `ws` (websocket). Temi inclusi in `./themes`.
 
 ## ⚠️ Sicurezza

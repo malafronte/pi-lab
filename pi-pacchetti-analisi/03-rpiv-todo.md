@@ -21,6 +21,7 @@ Dà all'agente uno strumento persistente per tenere una **todo list** durante ta
 **Comando slash:** `/todos` — mostra la todo list
 
 **Tool per l'LLM:** `todo({ action, ... })`
+
 - `action`: `create` | `update` | `list` | `get` | `delete` | `clear`
 - Macchina a 4 stati + tombstone
 - Supporto `blockedBy` con cycle detection
@@ -30,13 +31,17 @@ Dà all'agente uno strumento persistente per tenere una **todo list** durante ta
 ```bash
 pi install npm:@juicesharp/rpiv-todo
 ```
+
 Dipendenze: `@juicesharp/rpiv-config` (runtime), peer `@juicesharp/rpiv-i18n` (opzionale, per localizzazione).
 
 ### Localizzazione opzionale
+
 Funziona standalone (UI inglese). Per localizzare (heading overlay, header `/todos`, stati nella tua lingua):
+
 ```bash
 pi install npm:@juicesharp/rpiv-i18n
 ```
+
 Locale risolta da: `--locale <code>` → `~/.config/rpiv-i18n/locale.json` → `LANG`/`LC_ALL` → English.
 
 ## ✅ Sicurezza (ottima)

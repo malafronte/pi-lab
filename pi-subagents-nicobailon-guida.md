@@ -32,8 +32,8 @@ Tutte le feature, i comandi e i parametri sono tratti dal README ufficiale pi.de
 
 È **alternativo** (non complementare) a `@gotgenes/pi-subagents` di Chris Lasher. La differenza filosofica:
 
-| | **pi-subagents (nicobailon)** | **@gotgenes/pi-subagents** |
-|---|---|---|
+|   | **pi-subagents (nicobailon)** | **@gotgenes/pi-subagents** |
+| --- | --- | --- |
 | Filosofia | **Framework tutto-incluso** | Core minimal componibile |
 | Builtin | **8 agent di ruolo** | 3 agent generici |
 | Worktree | **Integrato** (`worktree: true`) | Companion separato (`pi-subagents-worktrees`) |
@@ -42,7 +42,7 @@ Tutte le feature, i comandi e i parametri sono tratti dal README ufficiale pi.de
 
 > Per il confronto tecnico completo vedi [`pi-subagents-confronto.md`](./pi-subagents-confronto.md). **Non installarli insieme** (conflitto sul tool `subagent` e sui path di discovery).
 
-### Possono convivere con altri package gotgenes?
+### Possono convivere con altri package gotgenes
 
 **Sì, sul layer permessi.** `pi-subagents` (nicobailon) si integra esplicitamente con `@gotgenes/pi-permission-system` tramite la env var `PI_SUBAGENT_PARENT_SESSION`. Quindi la combinazione **nicobailon subagents + gotgenes permission-system è supportata e validata empiricamente** (vedi [§12](#12-integrazione-con-i-permessi-validato)).
 
@@ -69,7 +69,7 @@ pi install npm:pi-subagents
 ```
 
 | Package gotgenes | Cosa farne |
-|---|---|
+| --- | --- |
 | `@gotgenes/pi-subagents` | ❌ **Rimuovere** — conflitto sul tool `subagent` |
 | `@gotgenes/pi-subagents-worktrees` | ❌ **Rimuovere** — companion incompatibile (si aggancia alla service API gotgenes) |
 | `@gotgenes/pi-permission-system` | ✅ **Tenere** — nicobailon ci si integra nativamente |
@@ -89,7 +89,7 @@ Vedi [§14](#14-migrazione-da-gotgenes) per la guida di migrazione dettagliata.
 Il package include 8 agent di ruolo pronti all'uso. **Ereditano il model default di pi** (non pinnati a un provider), così un'installazione nuova non dipende da un provider che potresti non aver configurato.
 
 | Agent | Quando usarlo |
-|---|---|
+| --- | --- |
 | `scout` | **Ricognizione veloce** del codice: file rilevanti, entry point, data flow, rischi, da dove un altro agente dovrebbe partire |
 | `researcher` | **Ricerca web/docs con fonti**: doc ufficiali, spec, benchmark, cambiamenti recenti, brief sintetico. Richiede `pi-web-access` |
 | `planner` | **Piano di implementazione** concreto dal contesto esistente. Legge e pianifica, non edita |
@@ -119,19 +119,19 @@ Il package include 8 agent di ruolo pronti all'uso. **Ereditano il model default
 
 **Non serve imparare slash command né parametri.** Dopo l'installazione, chiedi a pi la delega in linguaggio naturale:
 
-```
+```text
 Use reviewer to review this diff.
 ```
 
-```
+```text
 Ask oracle for a second opinion on my current plan.
 ```
 
-```
+```text
 Use scout to understand this code based on our discussion then ask me clarification questions.
 ```
 
-```
+```text
 Run parallel reviewers: one for correctness, one for tests, and one for unnecessary complexity.
 ```
 
@@ -141,7 +141,7 @@ Pi decide se chiamare `subagent`, quale agente usare, e se ha senso una chain o 
 
 Per lavoro di implementazione, il loop consigliato dal README è:
 
-```
+```text
 clarify → planner → worker → fresh reviewers → worker
 ```
 
@@ -154,7 +154,7 @@ I prompt template pronti ([§5](#5-slash-command-e-orchestrazione)) rendono ques
 ### Comandi diretti
 
 | Comando | Descrizione |
-|---|---|
+| --- | --- |
 | `/run <agent> [task]` | Esegue un agente; ometti il task per agent self-contained |
 | `/chain a1 "t1" -> a2 "t2"` | Esegue agent in sequenza |
 | `/parallel a1 "t1" -> a2 "t2"` | Esegue agent in parallelo |
@@ -168,19 +168,19 @@ I comandi validano i nomi agent localmente, supportano il **tab completion**, e 
 
 Separa gli step con `->` e dà a ciascuno il suo task:
 
-```
+```text
 /chain scout "scan the codebase" -> planner "create an implementation plan"
 ```
 
 o usa `--` come delimitatore:
 
-```
+```text
 /chain scout -- scan code -> planner -- analyze auth
 ```
 
 Config inline con `[key=value,...]` sul nome agente:
 
-```
+```text
 /chain scout[output=context.md] "scan code" -> planner[reads=context.md] "analyze auth"
 /run scout[model=anthropic/claude-sonnet-4] summarize this codebase
 ```
@@ -196,7 +196,7 @@ Chiavi supportate: `output`, `outputMode` (`inline`/`file-only`), `reads` (separ
 ### Prompt template pronti (shortcut)
 
 | Prompt | Uso |
-|---|---|
+| --- | --- |
 | `/parallel-review` | Reviewer fresh-context con angoli distinti, poi sintesi di cosa fixare |
 | `/review-loop` | Cicli worker→reviewer→fix-worker controllati dal parent fino a pulito o capped |
 | `/parallel-research` | Combina `researcher` + `scout` per evidenza esterna e contesto locale |
@@ -268,7 +268,7 @@ Questi sono i parametri che l'LLM passa quando chiama il tool `subagent`. La mag
 ### Parametri chiave
 
 | Param | Default | Descrizione |
-|---|---|---|
+| --- | --- | --- |
 | `context` | per-agent (`fresh`/`fork`) | Override esplicito per **ogni** figlio. `fork` crea sessioni ramificate reali |
 | `worktree` | `false` | Crea worktree git isolati per task paralleli (vedi [§7](#7-worktree-isolation-integrato)) |
 | `concurrency` | config o `4` | Concorrenza top-level parallela |
@@ -342,7 +342,7 @@ Vedi [§12](#12-integrazione-con-i-permessi-validato): un figlio in worktree ha 
 Gli agent sono file Markdown con frontmatter YAML + corpo system prompt. Posizionamento (priorità crescente):
 
 | Scope | Path |
-|---|---|
+| --- | --- |
 | Builtin | `~/.pi/agent/extensions/subagent/agents/` |
 | Installed package | `package.json` `pi-subagents.agents` o `pi.subagents.agents` |
 | User | `~/.pi/agent/agents/**/*.md` |
@@ -380,7 +380,7 @@ Your system prompt goes here.
 ### Campi chiave
 
 | Campo | Note |
-|---|---|
+| --- | --- |
 | `package` | Identificatore opzionale. `name: scout` + `package: code-analysis` → runtime name `code-analysis.scout` |
 | `tools` | Allowlist tool builtin. `mcp:` seleziona direct MCP tools (richiede `pi-mcp-adapter`). Se omesso, il figlio ha i builtin normali |
 | `extensions` | Omesso=tutte; vuoto=nessuna; lista=allowlist specifiche. Ha precedenza sui path implicati da `tools` |
@@ -411,7 +411,7 @@ Your system prompt goes here.
 Le chain sono workflow salvati separatamente dagli agent. `.chain.md` per chain sequenziali semplici; `.chain.json` quando serve fanout dinamico.
 
 | Scope | Path |
-|---|---|
+| --- | --- |
 | Installed package | `package.json` `pi-subagents.chains` o `pi.subagents.chains` |
 | User | `~/.pi/agent/chains/**/*.chain.{md,json}` |
 | Project | `.pi/chains/**/*.chain.{md,json}` |
@@ -447,7 +447,7 @@ Ogni sezione `## agent-name` è uno step. Le righe di config (`phase`, `label`, 
 ### Variabili nei task
 
 | Variabile | Descrizione |
-|---|---|
+| --- | --- |
 | `{task}` | Task originale del primo step |
 | `{previous}` | Output dello step precedente (o aggregato di uno step parallelo) |
 | `{chain_dir}` | Path alla directory artifact della chain |
@@ -572,7 +572,7 @@ pi install npm:pi-intercom
 
 Dopo l'installazione, `pi-subagents` dà automaticamente ai figli un canale privato di coordination verso il parent. Uso tipico (il child può aver bisogno di una decisione invece di indovinare):
 
-```
+```text
 Run this implementation in the background. If the worker gets blocked or needs a product decision, have it ask me through intercom.
 ```
 
@@ -591,7 +591,7 @@ Bridge attivo: il parent invia risultati raggruppati via intercom (un messaggio 
 `pi-subagents` compone con `@gotgenes/pi-permission-system` come **secondo layer di policy** sopra le restrizioni di visibility dei tool:
 
 | Layer | Cosa controlla | Provider |
-|---|---|---|
+| --- | --- | --- |
 | **Visibility** | Quali tool sono registrati prima del session start | pi-subagents (`tools:` frontmatter) |
 | **Policy** | Decisioni runtime allow/ask/deny su ogni tool call, bash, MCP | pi-permission-system (`permission:` frontmatter / config) |
 
@@ -657,7 +657,7 @@ Dettagli completi e catena causale in `pi-subagents-tutorial.md` §15.
 
 Ogni chain run crea una dir temp user-scoped:
 
-```
+```text
 <tmpdir>/pi-subagents-<scope>/chain-runs/{runId}/
 ```
 
@@ -709,7 +709,7 @@ Poi riavvia pi completamente.
 ### Mappatura dei concetti
 
 | Concetto gotgenes | Equivalente nicobailon |
-|---|---|
+| --- | --- |
 | Agent `general-purpose` | `delegate` (più simile: leggero, vicino al parent) o `worker` (per implementazione) |
 | Agent `Explore` | `scout` (ricognizione) |
 | Agent `Plan` | `planner` |
@@ -741,19 +741,19 @@ Poi riavvia pi completamente.
 
 ## 15. Trasparenza sulle fonti
 
-**Verificato direttamente:**
+### Verificato direttamente
 
 - Documentazione ufficiale [pi.dev/packages/pi-subagents](https://pi.dev/packages/pi-subagents) (README integrale estratto il 2026-06-28): tutte le feature, gli 8 builtin, i comandi, i parametri del tool `subagent`, la sezione worktree, le config, l'integrazione permessi con `PI_SUBAGENT_PARENT_SESSION`.
 - Codice installato `pi-subagents/src/runs/shared/worktree.ts`: path worktree (`os.tmpdir()/pi-worktree-<runId>-<index>`), branch (`pi-parallel-<runId>-<index>`), check clean tree, symlink node_modules, cleanup con `branch -D`.
 - Registry npm: autore Nico Bailon, repo `nicobailon/pi-subagents`, ~27.800 download/settimana.
 - **Test end-to-end reale** nel repo `pi-test` (2026-06-28): 2 worker paralleli + `worktree: true`, validazione isolamento + parallelismo + cleanup + forwarding permessi (sequenza `forwarded_permission.*` nel log di review, prompt 4 → 0 dopo soluzione A).
 
-**Limitazioni di questa guida:**
+### Limitazioni di questa guida
 
 - Non tutti i parametri/casi d'uso avanzati sono testati a runtime; i più rari sono tratti dal README pi.dev.
 - Le versioni del package sono rolling (snapshot pi.dev 2026-06-28); alcune API potrebbero cambiare — per il dettaglio canonico consulta sempre [pi.dev/packages/pi-subagents](https://pi.dev/packages/pi-subagents).
 
-**Correlati:**
+### Correlati
 
 - [`pi-subagents-confronto.md`](./pi-subagents-confronto.md) — confronto tecnico nicobailon vs gotgenes.
 - [`pi-subagents-tutorial.md`](./pi-subagents-tutorial.md) — tutorial da zero (concetti worktree git, isolamento, parallelismo) con appendice §15 sull'interazione permessi+worktree.

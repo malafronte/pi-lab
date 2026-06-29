@@ -9,19 +9,24 @@
 Sostituisce il footer di pi con una versione più ricca. Due modalità:
 
 ### Basic (default)
+
 Layout a due righe stile footer nativo, con token stats:
-```
+
+```text
 ~/my-project (main)
 ↑582k ↓44k R7.0M W470k $6.918 24.0%/1.0M         claude-opus-4-6 • high
 ```
 
 ### Expert
+
 Footer ricco con context gauge visuale, git status avanzato, costo sessione, **indicatori subscription**:
-```
+
+```text
 gpt-5.4 (high) - ◔ 14% (38k/272k $0.33)
 🗀 ~/my-project  ⎇ main * ↑2
 Codex > 5h ◑ 46% 2h38m > Week ○ 12%
 ```
+
 - **Git status**: branch, dirty (`*`), ahead/behind (`↑2 ↓1`)
 - **Context gauge**: icona pie (`○ ◔ ◑ ◕ ●`) con soglie di colore (green→yellow→red)
 - **Session cost**: totale `$` corrente
@@ -37,12 +42,15 @@ Codex > 5h ◑ 46% 2h38m > Week ○ 12%
 ```bash
 pi install npm:pi-mono-status-line
 ```
+
 La modalità è risolta in ordine (primo hit vince):
+
 1. `PI_STATUS_LINE_MODE` env var
 2. `~/.pi/agent/status-line.json` → `{ "mode": "basic" | "expert" }`
 3. default: `basic`
 
 Esempi:
+
 ```bash
 # persistente per tutte le sessioni
 echo '{ "mode": "expert" }' > ~/.pi/agent/status-line.json

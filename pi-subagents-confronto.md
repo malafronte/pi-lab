@@ -24,8 +24,8 @@
 
 Esistono **due package separati**, di autori diversi, con lo stesso nome-base `pi-subagents`:
 
-| | **`pi-subagents`** (nicobailon) | **`@gotgenes/pi-subagents`** |
-|---|---|---|
+|   | **`pi-subagents`** (nicobailon) | **`@gotgenes/pi-subagents`** |
+| --- | --- | --- |
 | **Installa con** | `pi install npm:pi-subagents` | `pi install npm:@gotgenes/pi-subagents` |
 | **Autore** | Nico Bailon | Chris Lasher |
 | **Provenienza** | originario / mainline | fork di `@tintinweb/pi-subagents` |
@@ -60,7 +60,7 @@ Esistono **due package separati**, di autori diversi, con lo stesso nome-base `p
 
 ## 3. La differenza filosofica fondamentale
 
-```
+```text
 ┌──────────────────────────────────────────────────────────────────────────┐
 │  pi-subagents (nicobailon) = "FRAMEWORK TUTTO-INCLUSO"                    │
 │  ─────────────────────────────────────────────────────────               │
@@ -89,7 +89,7 @@ In sintesi: **nicobailon punta alla massima funzionalità out-of-the-box; gotgen
 ## 4. Tabella di confronto completo
 
 | Aspetto | `pi-subagents` (nicobailon) | `@gotgenes/pi-subagents` (gotgenes) |
-|---|---|---|
+| --- | --- | --- |
 | **Installazione** | `npm:pi-subagents` | `npm:@gotgenes/pi-subagents` |
 | **Versione di riferimento** | (rolling, pi.dev 2026-06-28) | 18.0.1 |
 | **Builtin agents** | 8 di ruolo: `scout`, `researcher`, `planner`, `worker`, `reviewer`, `context-builder`, `oracle`, `delegate` | 3 generici: `general-purpose`, `Explore`, `Plan` |
@@ -156,8 +156,8 @@ Caratteristiche (verificate leggendo il codice installato, vedi `pi-subagents-tu
 
 ### Tabella sintesi worktree
 
-| | nicobailon (integrato) | gotgenes (companion) |
-|---|---|---|
+|   | nicobailon (integrato) | gotgenes (companion) |
+| --- | --- | --- |
 | **Granularità** | per-lancio (flag) | per-tipo-di-agente (config) |
 | **Setup hook** | ✅ `worktreeSetupHook` | ❌ |
 | **node_modules symlink** | ✅ automatico | ❌ |
@@ -175,7 +175,7 @@ Caratteristiche (verificate leggendo il codice installato, vedi `pi-subagents-tu
 
 ### Nicobailon — 8 agent di ruolo (opinione forte sull'orchestrazione)
 
-```
+```text
 scout           → ricognizione veloce del codice (file, entry point, rischi)
 researcher      → ricerca web/docs con fonti (richiede pi-web-access)
 planner         → piano di implementazione (legge, non edita)
@@ -190,7 +190,7 @@ C'è una **regola pratica** dichiarata dal README: `scout` prima di capire il co
 
 ### Gotgenes — 3 agent generici (mattoni neutri)
 
-```
+```text
 general-purpose → "Parent twin": eredita il system prompt completo del parent, tutti i tool
 Explore         → esplorazione read-only veloce (haiku)
 Plan            → architetto per planning implementativo read-only
@@ -206,7 +206,7 @@ Nessuna opinione di workflow: ti dà un'esploratore, un pianificatore e un agent
 
 ### Nicobailon — superficie ricca
 
-**Slash command:**
+### Slash command
 
 - `/run <agent>`, `/chain a -> b`, `/parallel a -> b`, `/run-chain <chain>`
 - `/subagents-doctor`, `/subagents-models`
@@ -236,9 +236,9 @@ Qui un dettaglio non ovvio e importante. Il README di **nicobailon** `pi-subagen
 
 **Questo è lo stesso meccanismo che abbiamo letto nel codice gotgenes.** In `@gotgenes/pi-permission-system/src/forwarded-permissions/permission-forwarder.ts` si legge `SUBAGENT_PARENT_SESSION_ENV_CANDIDATES`, e il forwarder cerca `PI_SUBAGENT_PARENT_SESSION` per sapere a quale sessione parent inoltrare i prompt `ask`.
 
-**Cosa significa concretamente:**
+### Cosa significa concretamente
 
-```
+```text
                     imposta PI_SUBAGENT_PARENT_SESSION
    nicobailon  ────────────────────────────────────────►  figlio (headless)
    pi-subagents     quando fa spawnare un figlio                  │
@@ -260,8 +260,8 @@ Qui un dettaglio non ovvio e importante. Il README di **nicobailon** `pi-subagen
 
 Nel documento precedente abbiamo analizzato in dettaglio (leggendo il codice) come interagiscono permessi e worktree nel setup **gotgenes**. Rileggiamolo alla luce del confronto:
 
-| | **Setup gotgenes** (cosa abbiamo testato) | **Setup nicobailon** (dal README) |
-|---|---|---|
+|   | **Setup gotgenes** (cosa abbiamo testato) | **Setup nicobailon** (dal README) |
+| --- | --- | --- |
 | **Worktree** | companion `pi-subagents-worktrees`, cwd del figlio = path in `os.tmpdir()` | integrato, `worktree: true` |
 | **Permesso "external_directory"** | valutato rispetto alla cwd del figlio (il worktree) → i path del repo originale diventano "external" | (non documentato; dipende da quale permission layer usi) |
 | **Forwarding prompt ask** | via `PI_SUBAGENT_PARENT_SESSION` (gotgenes) | via `PI_SUBAGENT_PARENT_SESSION` (stessa env var!) |
@@ -271,7 +271,7 @@ Nel documento precedente abbiamo analizzato in dettaglio (leggendo il codice) co
 
 ---
 
-## 10. Quale scegliere?
+## 10. Quale scegliere
 
 ### Scegli nicobailon `pi-subagents` se
 
@@ -299,7 +299,7 @@ Nel documento precedente abbiamo analizzato in dettaglio (leggendo il codice) co
 
 ---
 
-## 11. Possono convivere nello stesso progetto?
+## 11. Possono convivere nello stesso progetto
 
 **No, non dovresti installarli entrambi.** Motivazioni:
 
@@ -317,14 +317,14 @@ Nel documento precedente abbiamo analizzato in dettaglio (leggendo il codice) co
 
 ## 12. Trasparenza sulle fonti
 
-**Verificato direttamente:**
+### Verificato direttamente
 
 - `package.json` di `@gotgenes/pi-subagents` v18.0.1 installato in `~/.pi/agent/npm/node_modules/` → autore Chris Lasher, "friendly fork of @tintinweb/pi-subagents".
 - Codice di `@gotgenes/pi-subagents-worktrees/src/worktree.ts` e `@gotgenes/pi-permission-system/src/forwarded-permissions/permission-forwarder.ts` → letti a mano per le affermazioni su path worktree e forwarding permessi.
 - Registry npm per `pi-subagents` → autore Nico Bailon, ~27.800 download/settimana, repo `nicobailon/pi-subagents`.
 - Documentazione pi.dev (`https://pi.dev/packages/pi-subagents?name=subagents`) estratta integralmente il 2026-06-28 → tutte le feature di nicobailon (8 builtin, chain, worktree integrato, intercom, acceptance gates, env var `PI_SUBAGENT_PARENT_SESSION`).
 
-**Non testato a runtime (caveat):**
+### Non testato a runtime (caveat)
 
 **Aggiornamento (post-test):** `pi-subagents` (nicobailon) **è stato installato e testato end-to-end** (2 worker paralleli + `worktree: true`). Le feature di orchestrazione documentate sopra sono confermate a runtime. Il posizionamento del worktree è stato verificato dal codice (`src/runs/shared/worktree.ts`): path `os.tmpdir()/pi-worktree-<runId>-<index>`, branch `pi-parallel-<runId>-<index>`, symlink di `node_modules`, cleanup con `branch -D`.
 
