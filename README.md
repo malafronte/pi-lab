@@ -1,6 +1,6 @@
 <div align="center">
 
-# pi-lab — Configurazione avanzata e personalizzata di pi
+# pi-lab — Configurazione avanzata e personalizzata di [pi](https://pi.dev)
 
 Repo-template che documenta come trasformare un'installazione **base di pi** (coding agent) in una configurazione **avanzata e personalizzata**, descrivendo tutte le estensioni, plugin, skill, server MCP e configurazioni installate — con riferimento ufficiale, installazione, configurazione, uso ed esempi per ciascun componente.
 
@@ -29,7 +29,7 @@ Repo-template che documenta come trasformare un'installazione **base di pi** (co
 
 ## Panoramica
 
-pi è un coding agent estensibile: dopo l'installazione base espone i tool built-in (`read`, `write`, `edit`, `bash`) e i comandi slash di base, **senza** estensioni. Questo repo mostra come passare da quella base a una configurazione ricca, installando **15 pacchetti** (estensioni/skill da pi.dev e npm), **6 skill builtin**, **2 estensioni locali**, la configurazione di provider/modelli e un server MCP via proxy.
+[pi](https://pi.dev) è un coding agent estensibile: dopo l'installazione base espone i tool built-in (`read`, `write`, `edit`, `bash`) e i comandi slash di base, **senza** estensioni. Questo repo mostra come passare da quella base a una configurazione ricca, installando **15 pacchetti** (estensioni/skill da pi.dev e npm), **6 skill builtin**, **2 estensioni locali**, la configurazione di provider/modelli e un server MCP via proxy.
 
 Tutto è documentato in italiano, partendo da un pi appena installato e aggiungendo le parti una alla volta. Per ogni componente: **riferimento ufficiale, installazione, configurazione (con segnaposto semantici, mai segreti), uso ed esempi**.
 
