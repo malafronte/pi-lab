@@ -3,7 +3,7 @@
 
 $proxyPort = 9020
 $proxyScript = "$PSScriptRoot\stitch-proxy.mjs"
-$projectDir = Split-Path $PSScriptRoot -Qualifier           # cartella del progetto (genitore di .pi)
+$projectDir = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent   # cartella del progetto (genitore di .pi)
 
 # Avvia il proxy solo se la porta non è già in ascolto
 $portInUse = Get-NetTCPConnection -LocalPort $proxyPort -ErrorAction SilentlyContinue

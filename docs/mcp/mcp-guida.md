@@ -292,7 +292,7 @@ Oppure solo il proxy in background, poi pi a parte:
 
 ```powershell
 Start-Process -WindowStyle Hidden -FilePath node `
-  -ArgumentList "$env:USERPROFILE\source\repos\Test\pi-test\.pi\stitch-proxy\stitch-proxy.mjs"
+  -ArgumentList ".\.pi\stitch-proxy\stitch-proxy.mjs"
 ```
 
 **Senza il proxy attivo**, Stitch non si connette: avvia sempre il proxy prima di usare pi con Stitch.
@@ -383,4 +383,4 @@ Imposta `"lifecycle": "keep-alive"` (connette all'avvio + reconnect automatico v
 
 ---
 
-*Versioni: pi 0.79.10 · pi-mcp-adapter 2.10.0 · @modelcontextprotocol/sdk 1.29.0. Comandi e opzioni verificati sul codice installato. Documentazione del pacchetto: https://pi.dev/packages/pi-mcp-adapter*
+*Versioni: pi 0.79.10 · pi-mcp-adapter 2.10.0 · @modelcontextprotocol/sdk 1.29.0. Comandi e opzioni verificati sul codice installato. Documentazione del pacchetto: <https://pi.dev/packages/pi-mcp-adapter>*

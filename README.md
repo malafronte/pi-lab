@@ -1,6 +1,6 @@
 <div align="center">
 
-# pi-test — Configurazione avanzata e personalizzata di pi
+# pi-lab — Configurazione avanzata e personalizzata di pi
 
 Repo-template che documenta come trasformare un'installazione **base di pi** (coding agent) in una configurazione **avanzata e personalizzata**, descrivendo tutte le estensioni, plugin, skill, server MCP e configurazioni installate — con riferimento ufficiale, installazione, configurazione, uso ed esempi per ciascun componente.
 
@@ -173,8 +173,8 @@ flowchart TD
 
 ```bash
 # 1) Clona il repo
-git clone <REPO_URL> pi-test
-cd pi-test
+git clone <REPO_URL> pi-lab
+cd pi-lab
 
 # 2) Installa i pacchetti nella directory npm di pi
 cd ~/.pi/agent/npm
@@ -207,7 +207,7 @@ powershell -File .\.pi\stitch-proxy\start-pi.ps1
 ## Struttura del repository
 
 ```text
-pi-test/
+pi-lab/
 ├── README.md                      # questo file (panoramica + indice)
 ├── .mcp.json                      # server MCP di progetto (Stitch via proxy)
 ├── .pi/

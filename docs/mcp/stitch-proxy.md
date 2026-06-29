@@ -91,14 +91,14 @@ Il proxy **deve essere in esecuzione** prima di avviare pi (o prima di fare `/re
 Usa lo script `start-pi.ps1` (nella cartella `.pi/stitch-proxy/`) che avvia il proxy se non è già attivo e poi lancia pi:
 
 ```powershell
-powershell -File "$env:USERPROFILE\source\repos\Test\pi-test\.pi\stitch-proxy\start-pi.ps1"
+powershell -File .\.pi\stitch-proxy\start-pi.ps1
 ```
 
 Oppure avvia solo il proxy in background e lancia pi a parte:
 
 ```powershell
 Start-Process -WindowStyle Hidden -FilePath node `
-  -ArgumentList "$env:USERPROFILE\source\repos\Test\pi-test\.pi\stitch-proxy\stitch-proxy.mjs"
+  -ArgumentList ".\.pi\stitch-proxy\stitch-proxy.mjs"
 ```
 
 ### Avvio manuale (qualsiasi shell)
