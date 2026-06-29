@@ -299,7 +299,7 @@ Start-Process -WindowStyle Hidden -FilePath node `
 
 ### Procedura completa e dettagli
 
-Tutta la diagnostica, il funzionamento del proxy, come fermarlo/verificarlo e come ripristinare la connessione diretta sono in [`pi-stitch-proxy-guida.md`](pi-stitch-proxy-guida.md). Audit di sicurezza del pacchetto in [`pi-mcp-audit.md`](pi-mcp-audit.md).
+Tutta la diagnostica, il funzionamento del proxy, come fermarlo/verificarlo e come ripristinare la connessione diretta sono in [`pi-stitch-proxy-guida.md`](stitch-proxy.md). Audit di sicurezza del pacchetto in [`pi-mcp-audit.md`](mcp-audit.md).
 
 ## 9. Disconnettere / lifecycle del server
 

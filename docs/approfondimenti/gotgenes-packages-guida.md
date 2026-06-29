@@ -407,7 +407,7 @@ Il messaggio interrompe dopo l'esecuzione del tool corrente. Concurrency di defa
 
 ### 3.7 pi-subagents-worktrees — isolamento in worktree git
 
-> 📖 **Tutorial passo-passo da zero** — cos'è un worktree git, cosa sono isolamento e parallelismo, come combinarli, trappole e troubleshooting: vedi [`pi-subagents-tutorial.md`](./pi-subagents-tutorial.md).
+> 📖 **Tutorial passo-passo da zero** — cos'è un worktree git, cosa sono isolamento e parallelismo, come combinarli, trappole e troubleshooting: vedi [`pi-subagents-tutorial.md`](./subagents-tutorial.md).
 
 **Versione:** 0.2.3 · **Dipendenze runtime:** nessuna · **Prerequisiti esterni:** **richiede `pi-subagents`** (installato e caricato prima) · **Superficie:** media
 
@@ -648,7 +648,7 @@ Se usi i subagent **isolati in worktree** (gotgenes `pi-subagents-worktrees` o n
 }
 ```
 
-Il wildcard `*` matcha anche i separatori (copre i path profondi). Spiegazione completa, catena causale, differenza di reload e forwarding cross-ecosistema (validato): vedi [`pi-subagents-tutorial.md`](./pi-subagents-tutorial.md) §15.
+Il wildcard `*` matcha anche i separatori (copre i path profondi). Spiegazione completa, catena causale, differenza di reload e forwarding cross-ecosistema (validato): vedi [`pi-subagents-tutorial.md`](./subagents-tutorial.md) §15.
 
 ## 4. Raccomandazioni: cosa installare e come combinarli
 

@@ -4,7 +4,7 @@
 > Versioni di riferimento: `@gotgenes/pi-subagents` 18.0.1 · `@gotgenes/pi-subagents-worktrees` 0.2.3 · pi 0.79.10.
 > Tutti i comportamenti descritti sono tratti dai README ufficiali, dal codice dei package e da un **test end-to-end reale** (verifiche empiriche, non inventate).
 >
-> ⚠️ **Stack attualmente in uso: nicobailon `pi-subagents`.** Questo tutorial è nato sul setup gotgenes, ma i concetti (worktree git, isolamento, parallelismo) e l'appendice §15 (interazione permessi+worktree) valgono per entrambi gli stack. Per la guida completa del package nicobailon ora attivo (configurazione, 8 builtin, chain, migrazione) vedi [`pi-subagents-nicobailon-guida.md`](./pi-subagents-nicobailon-guida.md). Per il confronto tra i due: [`pi-subagents-confronto.md`](./pi-subagents-confronto.md).
+> ⚠️ **Stack attualmente in uso: nicobailon `pi-subagents`.** Questo tutorial è nato sul setup gotgenes, ma i concetti (worktree git, isolamento, parallelismo) e l'appendice §15 (interazione permessi+worktree) valgono per entrambi gli stack. Per la guida completa del package nicobailon ora attivo (configurazione, 8 builtin, chain, migrazione) vedi [`pi-subagents-nicobailon-guida.md`](./subagents-nicobailon-guida.md). Per il confronto tra i due: [`pi-subagents-confronto.md`](./subagents-confronto.md).
 
 ## Indice
 

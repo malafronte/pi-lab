@@ -32,7 +32,7 @@ Verificati nel codice/metadati:
 
 ### 1.3 ⚠️ `@juicesharp/rpiv-todo` ↔ nostra `plan-mode` locale (conflitto comando `/todos`)
 
-- La nostra estensione `.pi/extensions/plan-mode/index.ts` registra `/todos` (riga 149)
+- La nostra estensione `.pi/extensions/plan-mode/index.ts` registrava `/todos` (riga 149) — **nota**: l'estensione locale è stata **rimossa**; il plan mode è ora fornito dal pacchetto `@narumitw/pi-plan-mode` (vedi [`docs/pacchetti-npm/pi-plan-mode.md`](../../pacchetti-npm/pi-plan-mode.md))
 - `rpiv-todo` registra anch'essa il comando `/todos` (`COMMAND_NAME = "todos"`)
 - pi li rinominerebbe in `/todos:1` e `/todos:2` (comportamento documentato di pi)
 - **Verdetto**: non installare `rpiv-todo` **finché** tieni la nostra plan-mode. Oppure: se vuoi `rpiv-todo`, disabilita/rimuovi la nostra plan-mode (o uno dei due `/todos` diventa ambiguo).

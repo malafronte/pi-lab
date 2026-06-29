@@ -68,7 +68,7 @@ Locale risolta da: `--locale <code>` → `~/.config/rpiv-i18n/locale.json` → `
 ## Compatibilità
 
 - pi 0.79.10: ✅ compatibile (peer `*`)
-- ⚠️ **Conflitto `/todos`** con la nostra `.pi/extensions/plan-mode` locale
+- ⚠️ **Conflitto `/todos`** con la nostra `.pi/extensions/plan-mode` locale (estensione ora **rimossa**: il plan mode è fornito da `@narumitw/pi-plan-mode`, vedi [`docs/pacchetti-npm/pi-plan-mode.md`](../../pacchetti-npm/pi-plan-mode.md))
 
 ## Quando usarlo
 

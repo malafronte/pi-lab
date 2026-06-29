@@ -40,7 +40,7 @@ Tutte le feature, i comandi e i parametri sono tratti dal README ufficiale pi.de
 | Orchestrazione | Chain, parallel, fanout dinamico, loop | Steering mid-run (`steer_subagent`) |
 | Opinione di workflow | Sì (scout→planner→worker→reviewer) | No (mattoni neutrali) |
 
-> Per il confronto tecnico completo vedi [`pi-subagents-confronto.md`](./pi-subagents-confronto.md). **Non installarli insieme** (conflitto sul tool `subagent` e sui path di discovery).
+> Per il confronto tecnico completo vedi [`pi-subagents-confronto.md`](./subagents-confronto.md). **Non installarli insieme** (conflitto sul tool `subagent` e sui path di discovery).
 
 ### Possono convivere con altri package gotgenes
 
@@ -723,7 +723,7 @@ Poi riavvia pi completamente.
 ### Config da pulire
 
 - `.pi/subagents-worktrees.json` → rimuovilo (lettore rimosso).
-- La trappola del caching config di gotgenes-worktrees ([riavvio obbligatorio](./pi-subagents-tutorial.md#7--la-trappola-del-caching-della-config-la-cosa-più-importante)) **non si applica più** a nicobailon: il flag `worktree: true` è per-lancio, nessuna config cachata a livello di processo.
+- La trappola del caching config di gotgenes-worktrees ([riavvio obbligatorio](./subagents-tutorial.md#7--la-trappola-del-caching-della-config-la-cosa-più-importante)) **non si applica più** a nicobailon: il flag `worktree: true` è per-lancio, nessuna config cachata a livello di processo.
 
 ### Cambiamenti di UX da aspettarsi
 
@@ -755,9 +755,9 @@ Poi riavvia pi completamente.
 
 ### Correlati
 
-- [`pi-subagents-confronto.md`](./pi-subagents-confronto.md) — confronto tecnico nicobailon vs gotgenes.
-- [`pi-subagents-tutorial.md`](./pi-subagents-tutorial.md) — tutorial da zero (concetti worktree git, isolamento, parallelismo) con appendice §15 sull'interazione permessi+worktree.
-- [`pi-gotgenes-packages-guida.md`](./pi-gotgenes-packages-guida.md) — reference tecnica del monorepo gotgenes (§3.8 per i permessi).
+- [`pi-subagents-confronto.md`](./subagents-confronto.md) — confronto tecnico nicobailon vs gotgenes.
+- [`pi-subagents-tutorial.md`](./subagents-tutorial.md) — tutorial da zero (concetti worktree git, isolamento, parallelismo) con appendice §15 sull'interazione permessi+worktree.
+- [`pi-gotgenes-packages-guida.md`](./gotgenes-packages-guida.md) — reference tecnica del monorepo gotgenes (§3.8 per i permessi).
 
 ---
 
