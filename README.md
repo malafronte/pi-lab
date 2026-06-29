@@ -241,4 +241,6 @@ Punti di ingresso consigliati:
 
 ## License
 
-Questo repo è documentazione e configurazione di esempio. I singoli pacchetti mantengono le rispettive licenze (prevalentemente MIT; `pi-questionnaire` è CC0-1.0 OR Unlicense). Si veda la colonna "Licenza" in ogni pagina per-componente.
+La documentazione e gli script di questo repo sono distribuiti con licenza **MIT** — vedi [`LICENSE`](LICENSE).
+
+I singoli pacchetti npm installati mantengono le rispettive licenze (prevalentemente MIT; `pi-questionnaire` è CC0-1.0 OR Unlicense). Si veda la colonna "Licenza" in ogni pagina per-componente.
