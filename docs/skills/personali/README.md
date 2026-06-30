@@ -6,12 +6,18 @@ A differenza delle skill in [`../da-pacchetti/`](../da-pacchetti/) (che arrivano
 
 ## Come aggiungere una skill personale
 
-Una skill è una cartella con un file `SKILL.md` (con frontmatter `name` + `description`). Due scope possibili:
+Una skill è una directory con un file `SKILL.md` (con frontmatter `name` + `description`). Secondo [`docs/skills.md`](https://github.com/earendil-works/pi-coding-agent/blob/main/docs/skills.md) di pi, le sedi per skill utente sono diverse (tutte equivalenti per lo scopo di questa cartella):
 
 | Scope | Percorso | Effetto |
 | --- | --- | --- |
-| **Globale** | `~/.pi/agent/skills/<nome>/SKILL.md` | disponibile in tutti i progetti |
-| **Progetto** | `<cwd>/.pi/skills/<nome>/SKILL.md` | disponibile solo in quel progetto |
+| **Globale pi** | `~/.pi/agent/skills/<nome>/SKILL.md` (anche `.md` singoli alla radice) | disponibile in tutti i progetti |
+| **Globale `~/.agents`** | `~/.agents/skills/<nome>/SKILL.md` | disponibile in tutti i progetti (standard condiviso tra harness; solo subdir con `SKILL.md`) |
+| **Progetto pi** | `<cwd>/.pi/skills/<nome>/SKILL.md` | disponibile solo in quel progetto (richiede progetto fidato) |
+| **Progetto `~/.agents`** | `.agents/skills/<nome>/SKILL.md` in `cwd` o ancestor | disponibile nel progetto/ancestor |
+| **Settings** | array `skills` in `settings.json` o `.pi/settings.json` | file/directory aggiuntivi |
+| **CLI** | `--skill <path>` | per una singola esecuzione (additivo) |
+
+> Inoltre ogni skill è richiamabile come comando `/skill:<nome>` (forza il caricamento).
 
 Template minimo di `SKILL.md`:
 

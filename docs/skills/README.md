@@ -1,6 +1,8 @@
 # Skill — panoramica e origine
 
-> La cartella `docs/skills/` distingue due categorie di skill in base alla **provenienza**, non in base a un presunto stato "builtin" (pi core **non** porta skill proprie: tutte le skill arrivano dai pacchetti o dall'utente).
+> La cartella `docs/skills/` distingue due categorie di skill in base alla **provenienza**, non in base a un presunto stato "builtin".
+>
+> **Precisazione importante (corregge una versione precedente di questo documento):** pi core **ha un sistema di skill completo** — implementa lo [standard Agent Skills](https://agentskills.io/specification) e carica le skill da diverse fonti (vedi tabella sotto). Tuttavia pi **non distribuisce skill preinstallate** nel proprio pacchetto core: le 6 skill attualmente attive in questa configurazione provengono **tutte dai pacchetti npm** (`pi-web-access`, `pi-subagents`, `pi-lens`). Il termine "builtin" è quindi impreciso: il _meccanismo_ di caricamento è di pi core, ma le _skill_ specifiche arrivano dai pacchetti o dall'utente. Riferimento ufficiale: [`docs/skills.md`](https://github.com/earendil-works/pi-coding-agent/blob/main/docs/skills.md) di pi.
 
 ## Due categorie, due sottocartelle
 
@@ -13,13 +15,19 @@
 
 ## Come arrivano le skill (in generale)
 
-In pi, una skill è un set di istruzioni specializzate (un `SKILL.md`) che l'agente carica quando il task corrisponde alla sua descrizione. Le fonti possibili:
+In pi, una skill è un set di istruzioni specializzate (un `SKILL.md`) che l'agente carica quando il task corrisponde alla sua descrizione. Pi carica le skill dalle seguenti fonti (verificate su [`docs/skills.md`](https://github.com/earendil-works/pi-coding-agent/blob/main/docs/skills.md) di pi core):
 
 | Fonte | Dove risiede | Sottocartella docs |
 | --- | --- | --- |
-| **Pacchetto npm** | `node_modules/<pkg>/<pi.skills-path>/` | `da-pacchetti/` |
-| **Skill globale custom** | `~/.pi/agent/skills/<nome>/SKILL.md` | `personali/` |
-| **Skill di progetto** | `<cwd>/.pi/skills/<nome>/SKILL.md` | `personali/` |
+| **Pacchetto npm** (via `pi.skills` del `package.json` o dir `skills/` del pacchetto) | `node_modules/<pkg>/<pi.skills-path>/` | `da-pacchetti/` |
+| **Skill globale pi** | `~/.pi/agent/skills/<nome>/SKILL.md` (dir o `.md` singoli alla radice) | `personali/` |
+| **Skill globale `~/.agents`** (standard condiviso tra harness) | `~/.agents/skills/<nome>/SKILL.md` (solo subdir con `SKILL.md`) | `personali/` |
+| **Skill di progetto pi** | `<cwd>/.pi/skills/<nome>/SKILL.md` (richiede progetto fidato) | `personali/` |
+| **Skill di progetto `~/.agents`** | `.agents/skills/` in `cwd` e directory ancestor (fino alla root del repo/git) | `personali/` |
+| **Settings `skills`** | array `skills` con file/directory in `settings.json` | `personali/` |
+| **CLI** | `--skill <path>` (additivo, anche con `--no-skills`) | `personali/` |
+
+Le skill si registrano anche come comandi `/skill:<nome>` (forzano il caricamento). In questa configurazione **tutte le 6 skill attive provengono dalla prima fonte** (pacchetti npm): `~/.pi/agent/skills/` non esiste, quindi nessuna skill è installata separatamente dall'utente.
 
 ## Mappa pacchetto → skill (categoria `da-pacchetti/`)
 

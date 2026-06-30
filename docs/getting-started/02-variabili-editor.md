@@ -1,11 +1,14 @@
 # Guida: Impostare le variabili d'ambiente `$VISUAL` e `$EDITOR`
 
 > Note operative verificate su **Windows 11** con **Git Bash** (bash 5.x), **Node 24.16.0** e **VS Code** come editor. I comandi sono stati eseguiti concretamente in sessione: dove un'affermazione è verificata, è indicato l'output reale.
+>
+> **Caso d'uso in pi:** questo documento copre anche l'impostazione che fa sì che il tasto **`Ctrl+G`** di pi apra **VS Code** (vedi [§0](#0-in-pi-ctrlg-apre-leditor-esterno-caso-duso-diretto)).
 
 ## Indice
 
 - [Guida: Impostare le variabili d'ambiente `$VISUAL` e `$EDITOR`](#guida-impostare-le-variabili-dambiente-visual-e-editor)
   - [Indice](#indice)
+  - [0. In pi: Ctrl+G apre l'editor esterno (caso d'uso diretto)](#0-in-pi-ctrlg-apre-leditor-esterno-caso-duso-diretto)
   - [1. A cosa servono queste variabili?](#1-a-cosa-servono-queste-variabili)
   - [2. Quale scegliere tra `VISUAL` ed `EDITOR`?](#2-quale-scegliere-tra-visual-ed-editor)
   - [3. Verificare lo stato attuale](#3-verificare-lo-stato-attuale)
@@ -18,6 +21,29 @@
   - [9. Verificare che tutto funzioni](#9-verificare-che-tutto-funzioni)
   - [10. Risoluzione dei problemi](#10-risoluzione-dei-problemi)
   - [Riepilogo rapido (TL;DR)](#riepilogo-rapido-tldr)
+
+---
+
+## 0. In pi: Ctrl+G apre l'editor esterno (caso d'uso diretto)
+
+In pi (coding agent), il keybinding **`Ctrl+G`** apre il messaggio corrente nell'**editor esterno**. Quale editor viene lanciato è determinato proprio da queste variabili: pi cerca prima `$VISUAL`, poi `$EDITOR`.
+
+| Keybinding pi | Tasto | Azione |
+| --- | --- | --- |
+| `app.editor.external` | `Ctrl+G` | Apre nell'editor esterno (`$VISUAL` o `$EDITOR`) |
+
+> Riferimento ufficiale: [`docs/keybindings.md`](https://github.com/earendil-works/pi-coding-agent/blob/main/docs/keybindings.md) di pi (azione `app.editor.external`).
+
+**Quindi, per fare in modo che `Ctrl+G` apra VS Code** devi impostare (vedi sezioni 5–8 per i dettagli per shell):
+
+```bash
+export VISUAL="code --wait"
+export EDITOR="code --wait"
+```
+
+Il flag `--wait` è **obbligatorio** per VS Code (e ogni editor grafico): senza di esso, l'editor si aprierebbe ma pi non resterebbe in attesa della tua modifica. Vedi [§ Il flag `--wait`](#il-flag---wait-fondamentale-per-gli-editor-grafici).
+
+Dopo aver impostato le variabili, in una sessione pi premi `Ctrl+G` e si apre VS Code sul messaggio corrente; chiudi la scheda in VS Code per tornare a pi con il contenuto modificato.
 
 ---
 
