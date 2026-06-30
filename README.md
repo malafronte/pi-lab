@@ -56,62 +56,64 @@ Configurare un coding agent con code intelligence, web access, sub-agent, permes
 
 ## Architettura
 
+L'architettura è suddivisa in più diagrammi per mantenerli leggibili (al massimo 3–4 blocchi in orizzontale, etichette concise). Il primo è la **panoramica** ad alto livello; gli altri dettagliano i 15 pacchetti raggruppati per area funzionale.
+
+### 1. Panoramica
+
 ```mermaid
 flowchart TD
     BASE["pi base<br/>read · write · edit · bash<br/>+ comandi slash"]
+    BASE --> CONFIG["Configurazione globale<br/>settings · models · vision-tool<br/>auth · permission · mcp"]
+    BASE --> PKG["Pacchetti npm<br/>15 estensioni in settings.json"]
+    BASE --> LOCAL["Componenti locali<br/>scripts/ · .pi/stitch-proxy/<br/>pi-fixmd (estensione di progetto)"]
+```
 
-    BASE --> CONFIG["Configurazione<br/>settings.json · models.json<br/>vision-tool.json · auth.json"]
+### 2. Code intelligence & accesso ai dati
 
-    BASE --> PKG["Pacchetti npm<br/>~/.pi/agent/npm/"]
+```mermaid
+flowchart TD
+    A["Code intelligence<br/>& accesso ai dati"]
+    A --> LENS["pi-lens<br/>LSP · ast-grep · tree-sitter"]
+    A --> WEB["pi-web-access<br/>web_search · fetch_content"]
+    A --> VIS["pi-vision-tool<br/>describe_image"]
+    A --> BRW["pi-agent-browser-native<br/>agent_browser"]
+    LENS -.-> S1["4 skill:<br/>ast-grep · lsp-navigation<br/>write-ast-grep-rule<br/>write-tree-sitter-rule"]
+    WEB -.-> S2["skill: librarian"]
+```
 
-    subgraph CI["Code intelligence"]
-        LENS["pi-lens<br/>LSP · ast-grep · tree-sitter"]
-        LENS --> SK1["skill: ast-grep<br/>lsp-navigation<br/>write-ast-grep-rule<br/>write-tree-sitter-rule"]
-    end
+### 3. Orchestrazione & workflow
 
-    subgraph WEB["Web & multimodale"]
-        WEBACC["pi-web-access<br/>web_search · fetch_content"]
-        WEBACC --> SK2["skill: librarian"]
-        BROWSER["pi-agent-browser-native<br/>agent_browser"]
-        VISION["pi-vision-tool<br/>describe_image"]
-    end
+```mermaid
+flowchart TD
+    A["Orchestrazione & workflow"]
+    A --> SUB["pi-subagents<br/>subagent · chain · parallel"]
+    A --> GOAL["pi-codex-goal<br/>create/get/update_goal"]
+    A --> PLAN["@narumitw/pi-plan-mode<br/>/plan"]
+    A --> STUDIO["pi-studio<br/>REPL · export PDF/HTML"]
+    SUB -.-> S["skill: pi-subagents"]
+```
 
-    subgraph ORCH["Orchestrazione"]
-        SUB["pi-subagents<br/>subagent · chain · parallel"]
-        SUB --> SK3["skill: pi-subagents"]
-        GOAL["pi-codex-goal<br/>create/get/update_goal"]
-        PLAN["@narumitw/pi-plan-mode<br/>/plan"]
-        QUEST["pi-questionnaire<br/>AskUserQuestion"]
-        STUDIO["pi-studio<br/>REPL · export PDF/HTML"]
-    end
+### 4. Interazione & sicurezza
 
-    subgraph SEC["Sicurezza & operatività"]
-        PERM["@gotgenes/pi-permission-system<br/>gate allow/ask/deny"]
-        NOCD["@gotgenes/pi-nocd"]
-        SESS["@gotgenes/pi-session-tools"]
-        GH["@gotgenes/pi-github-tools<br/>ci/release/issue"]
-        THEMES["@spences10/pi-themes"]
-    end
+```mermaid
+flowchart TD
+    A["Interazione & sicurezza"]
+    A --> QUEST["pi-questionnaire<br/>AskUserQuestion"]
+    A --> PERM["@gotgenes/pi-permission-system<br/>gate allow/ask/deny"]
+    A --> NOCD["@gotgenes/pi-nocd<br/>no cd-prefix"]
+    A --> SESS["@gotgenes/pi-session-tools<br/>session metadata"]
+```
 
-    subgraph MCPB["MCP"]
-        MCPAD["pi-mcp-adapter<br/>tool mcp · /mcp"]
-        STITCH["Google Stitch<br/>via proxy locale"]
-        MCPAD --> STITCH
-    end
+### 5. GitHub, MCP & temi
 
-    subgraph LOCAL["Locali"]
-        FIXMD["pi-fixmd<br/>/fixmd (project)"]
-        SCRIPTS["scripts/<br/>fix-markdown · count · parse"]
-        STITCHPROXY[".pi/stitch-proxy/<br/>stitch-proxy.mjs"]
-        STITCH --> STITCHPROXY
-    end
-
-    PKG --> CI
-    PKG --> WEB
-    PKG --> ORCH
-    PKG --> SEC
-    PKG --> MCPB
-    CONFIG --> LOCAL
+```mermaid
+flowchart TD
+    A["GitHub, MCP & temi"]
+    A --> GH["@gotgenes/pi-github-tools<br/>ci/release/issue"]
+    A --> MCPAD["pi-mcp-adapter<br/>tool mcp · /mcp"]
+    A --> THEMES["@spences10/pi-themes<br/>theme pack"]
+    MCPAD --> STITCH["Google Stitch<br/>via proxy locale"]
+    STITCH --> STITCHPROXY[".pi/stitch-proxy/<br/>stitch-proxy.mjs"]
 ```
 
 ## Stack tecnologico
