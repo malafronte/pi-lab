@@ -22,7 +22,7 @@ Il campo `pi.skills` del `package.json` punta a `./skills`.
 
 ## Configurazione
 
-Gli agent custom si definiscono in `~/.pi/agent/extensions/pi-subagents/agents/` (globale) o `.pi/extensions/pi-subagents/` (progetto). Le chain usano una `chainDir` condivisa (default temp utente). Vedi [`docs/pacchetti-npm/pi-subagents.md`](../pacchetti-npm/pi-subagents.md).
+Gli agent custom si definiscono in `~/.pi/agent/extensions/pi-subagents/agents/` (globale) o `.pi/extensions/pi-subagents/` (progetto). Le chain usano una `chainDir` condivisa (default temp utente). Vedi [`docs/pacchetti-npm/pi-subagents.md`](../../pacchetti-npm/pi-subagents.md).
 
 ## Uso
 
@@ -75,4 +75,4 @@ subagent({ agent: "worker", task: "Implementa l'approccio approvato: {previous}"
 /subagents-doctor
 ```
 
-Per la guida completa vedi [`docs/approfondimenti/subagents-nicobailon-guida.md`](../approfondimenti/subagents-nicobailon-guida.md).
+Per la guida completa vedi [`docs/approfondimenti/subagents-nicobailon-guida.md`](../../approfondimenti/subagents-nicobailon-guida.md).

@@ -57,18 +57,21 @@ Estensioni installate come **directory di codice** (non solo pacchetto npm elenc
 
 > **`@gotgenes/pi-permission-system`** è installato sia come pacchetto npm **sia** come estensione globale con `config.json` custom. Le due facce sono documentate **in una sola pagina** con sezioni distinte (canale npm + installazione globale + config): [`pacchetti-npm/pi-permission-system.md`](pacchetti-npm/pi-permission-system.md). Vedi anche [`config/permission-system.md`](config/permission-system.md) per il riferimento del file di policy.
 
-## 5. Skill (fornite dai pacchetti)
+## 5. Skill
 
-Le 6 skill attuali **non sono installate separatamente**: derivano automaticamente dai pacchetti installati tramite il campo `pi.skills` del loro `package.json`. Panoramica e mappa pacchetto→skill in [`skills/README.md`](skills/README.md). Derivano da 3 pacchetti: `pi-web-access`→librarian, `pi-subagents`→pi-subagents, `pi-lens`→le altre 4.
+Le skill si dividono per **provenienza** in due sottocartelle (vedi [`skills/README.md`](skills/README.md) per la panoramica):
 
-| Skill | Derivata da | Quando usarla |
-| --- | --- | --- |
-| [`skills/librarian.md`](skills/librarian.md) | pi-web-access | ricerca librerie open-source con citazioni |
-| [`skills/pi-subagents.md`](skills/pi-subagents.md) | pi-subagents | delegare lavoro a sub-agent |
-| [`skills/ast-grep.md`](skills/ast-grep.md) | pi-lens | ricerca/sostituzione AST-aware |
-| [`skills/lsp-navigation.md`](skills/lsp-navigation.md) | pi-lens | navigazione e diagnostica LSP |
-| [`skills/write-ast-grep-rule.md`](skills/write-ast-grep-rule.md) | pi-lens | scrivere regole ast-grep |
-| [`skills/write-tree-sitter-rule.md`](skills/write-tree-sitter-rule.md) | pi-lens | scrivere regole tree-sitter |
+- **[`skills/da-pacchetti/`](skills/da-pacchetti/)** — 6 skill **automatiche**, fornite dai pacchetti tramite il campo `pi.skills` (non installate separatamente). Derivano da 3 pacchetti: `pi-web-access`→librarian, `pi-subagents`→pi-subagents, `pi-lens`→le altre 4.
+- **[`skills/personali/`](skills/personali/)** — skill **installate esplicitamente dall'utente** (custom, indipendenti dai pacchetti). Al momento vuota.
+
+| Skill | Categoria | Provenienza | Quando usarla |
+| --- | --- | --- | --- |
+| [`skills/da-pacchetti/librarian.md`](skills/da-pacchetti/librarian.md) | da pacchetto | pi-web-access | ricerca librerie open-source con citazioni |
+| [`skills/da-pacchetti/pi-subagents.md`](skills/da-pacchetti/pi-subagents.md) | da pacchetto | pi-subagents | delegare lavoro a sub-agent |
+| [`skills/da-pacchetti/ast-grep.md`](skills/da-pacchetti/ast-grep.md) | da pacchetto | pi-lens | ricerca/sostituzione AST-aware |
+| [`skills/da-pacchetti/lsp-navigation.md`](skills/da-pacchetti/lsp-navigation.md) | da pacchetto | pi-lens | navigazione e diagnostica LSP |
+| [`skills/da-pacchetti/write-ast-grep-rule.md`](skills/da-pacchetti/write-ast-grep-rule.md) | da pacchetto | pi-lens | scrivere regole ast-grep |
+| [`skills/da-pacchetti/write-tree-sitter-rule.md`](skills/da-pacchetti/write-tree-sitter-rule.md) | da pacchetto | pi-lens | scrivere regole tree-sitter |
 
 ## 6. MCP — server e proxy
 

@@ -222,7 +222,9 @@ pi-lab/
     ├── config/                    # settings, models, vision-tool, permission-system, mcp-onboarding
     ├── pacchetti-npm/                  # 15 pacchetti + _gotgenes-monorepo
     ├── estensioni-locali/                # pi-permission-system (globale), pi-fixmd (progetto)
-    ├── skills/                    # 6 skill fornite dai pacchetti (README.md = panoramica)
+    ├── skills/                    # skill (README.md = panoramica per provenienza)
+    │   ├── da-pacchetti/         # 6 skill automatiche (via pi.skills)
+    │   └── personali/           # skill utente esplicite (vuoto)
     ├── mcp/                       # mcp-guida, stitch-proxy, mcp-audit
     ├── components-locali/         # stitch-proxy, scripts
     └── approfondimenti/           # guide, confronti, analisi pacchetti

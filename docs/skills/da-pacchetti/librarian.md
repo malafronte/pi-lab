@@ -22,7 +22,7 @@ Il campo `pi.skills` del `package.json` di `pi-web-access` punta a `./skills`, c
 
 ## Configurazione
 
-Nessuna configurazione dedicata. Usa le credenziali provider di `pi-web-access` (vedi [`docs/pacchetti-npm/pi-web-access.md`](../pacchetti-npm/pi-web-access.md)) per `web_search` e `fetch_content`.
+Nessuna configurazione dedicata. Usa le credenziali provider di `pi-web-access` (vedi [`docs/pacchetti-npm/pi-web-access.md`](../../pacchetti-npm/pi-web-access.md)) per `web_search` e `fetch_content`.
 
 ## Uso
 

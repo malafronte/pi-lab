@@ -61,7 +61,7 @@ Recupera il contenuto full di una precedente `web_search` o `fetch_content` (via
 
 ### Skill `librarian`
 
-pi-web-access porta la skill `librarian` per ricercare librerie open-source con risposte evidence-backed e permalink GitHub (vedi [`docs/skills/librarian.md`](../skills/librarian.md)).
+pi-web-access porta la skill `librarian` per ricercare librerie open-source con risposte evidence-backed e permalink GitHub (vedi [`docs/skills/da-pacchetti/librarian.md`](../skills/da-pacchetti/librarian.md)).
 
 ## Esempi
 
