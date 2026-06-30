@@ -105,3 +105,10 @@ htmlcov/
 Thumbs.db
 desktop.ini
 ehthumbs.db
+
+# ---------------------------------------------------------------------------
+# Artefatti Windows accidentali (nomi di dispositivo riservati)
+# ---------------------------------------------------------------------------
+# Un redirect tipo `comando > nul` può creare un file fisico ``nul`` invece
+# di andare al device null; git non riesce a indicizzarlo. Lo si ignora.
+nul

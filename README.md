@@ -8,7 +8,7 @@ Repo-template che documenta come trasformare un'installazione **base di pi** (co
 [![Node](https://img.shields.io/badge/Node-%3E%3D22-339933?logo=node.js&logoColor=white)](https://nodejs.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Packages](https://img.shields.io/badge/pacchetti-15-0F766E)](docs/README.md)
-[![Skills](https://img.shields.io/badge/skill-6%20builtin-2563EB)](docs/skills/)
+[![Skills](https://img.shields.io/badge/skill-6%20dai%20pacchetti-2563EB)](docs/skills/README.md)
 [![Docs](https://img.shields.io/badge/docs-italiano-7C3AED)](docs/README.md)
 [![MCP](https://img.shields.io/badge/MCP-stitch%20%2B%20proxy-F59E0B)](docs/mcp/)
 [![License](https://img.shields.io/badge/license-MIT-16A34A)](#license)
@@ -29,9 +29,9 @@ Repo-template che documenta come trasformare un'installazione **base di pi** (co
 
 ## Panoramica
 
-[pi](https://pi.dev) è un coding agent estensibile: dopo l'installazione base espone i tool built-in (`read`, `write`, `edit`, `bash`) e i comandi slash di base, **senza** estensioni. Questo repo mostra come passare da quella base a una configurazione ricca, installando **15 pacchetti** (estensioni/skill da pi.dev e npm), **6 skill builtin**, **2 estensioni locali**, la configurazione di provider/modelli e un server MCP via proxy.
+[pi](https://pi.dev) è un coding agent estensibile: dopo l'installazione base espone i tool built-in (`read`, `write`, `edit`, `bash`) e i comandi slash di base, **senza** estensioni. Questo repo mostra come passare da quella base a una configurazione ricca, installando **15 pacchetti** (estensioni/skill da pi.dev e npm), **6 skill** (fornite dai pacchetti, non installate separatamente), **2 estensioni locali**, la configurazione di provider/modelli e un server MCP via proxy.
 
-Tutto è documentato in italiano, partendo da un pi appena installato e aggiungendo le parti una alla volta. Per ogni componente: **riferimento ufficiale, installazione, configurazione (con segnaposto semantici, mai segreti), uso ed esempi**.
+Tutto è documentato, partendo da un pi appena installato e aggiungendo le parti una alla volta. Per ogni componente: **riferimento ufficiale, installazione, configurazione (con segnaposto semantici, mai segreti), uso ed esempi**.
 
 | Area | Cosa contiene | Link |
 | --- | --- | --- |
@@ -39,7 +39,7 @@ Tutto è documentato in italiano, partendo da un pi appena installato e aggiunge
 | Configurazione | settings, models, vision-tool, permission, mcp-onboarding | [docs/config/](docs/config/) |
 | Pacchetti | 15 pacchetti + panoramica monorepo gotgenes | [docs/pacchetti-npm/](docs/pacchetti-npm/) |
 | Estensioni locali | pi-permission-system (globale), pi-fixmd (progetto) | [docs/estensioni-locali/](docs/estensioni-locali/) |
-| Skill | 6 skill builtin (librarian, ast-grep, lsp, subagents, regole) | [docs/skills/](docs/skills/) |
+| Skill | 6 skill fornite dai pacchetti (librarian, ast-grep, lsp, subagents, regole) | [docs/skills/README.md](docs/skills/README.md) |
 | MCP | server MCP, proxy Stitch, audit di sicurezza | [docs/mcp/](docs/mcp/) |
 | Componenti locali | stitch-proxy, scripts di utilità | [docs/components-locali/](docs/components-locali/) |
 | Approfondimenti | guide, confronti, analisi dei pacchetti | [docs/approfondimenti/](docs/approfondimenti/) |
@@ -157,11 +157,11 @@ flowchart TD
 | 14 | `@narumitw/pi-plan-mode` | Plan mode | [docs/pacchetti-npm/pi-plan-mode.md](docs/pacchetti-npm/pi-plan-mode.md) |
 | 15 | `@spences10/pi-themes` | Temi | [docs/pacchetti-npm/pi-themes.md](docs/pacchetti-npm/pi-themes.md) |
 
-### Skill builtin (6) · Estensioni locali (2) · MCP & componenti locali
+### Skill (6, dai pacchetti) · Estensioni locali (2) · MCP & componenti locali
 
 | Tipo | Componente | Documento |
 | --- | --- | --- |
-| Skill | librarian, pi-subagents, ast-grep, lsp-navigation, write-ast-grep-rule, write-tree-sitter-rule | [docs/skills/](docs/skills/) |
+| Skill | 6 skill **fornite dai pacchetti** (non installate separatamente): librarian, pi-subagents, ast-grep, lsp-navigation, write-ast-grep-rule, write-tree-sitter-rule | [docs/skills/README.md](docs/skills/README.md) |
 | Estensione globale | pi-permission-system | [docs/pacchetti-npm/pi-permission-system.md](docs/pacchetti-npm/pi-permission-system.md) |
 | Estensione progetto | pi-fixmd (`/fixmd`) | [docs/estensioni-locali/pi-fixmd.md](docs/estensioni-locali/pi-fixmd.md) |
 | MCP | pi-mcp-adapter + Stitch proxy | [docs/mcp/](docs/mcp/) |
@@ -222,7 +222,7 @@ pi-lab/
     ├── config/                    # settings, models, vision-tool, permission-system, mcp-onboarding
     ├── pacchetti-npm/                  # 15 pacchetti + _gotgenes-monorepo
     ├── estensioni-locali/                # pi-permission-system (globale), pi-fixmd (progetto)
-    ├── skills/                    # 6 skill builtin
+    ├── skills/                    # 6 skill fornite dai pacchetti (README.md = panoramica)
     ├── mcp/                       # mcp-guida, stitch-proxy, mcp-audit
     ├── components-locali/         # stitch-proxy, scripts
     └── approfondimenti/           # guide, confronti, analisi pacchetti

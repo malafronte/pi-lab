@@ -57,7 +57,9 @@ Estensioni installate come **directory di codice** (non solo pacchetto npm elenc
 
 > **`@gotgenes/pi-permission-system`** è installato sia come pacchetto npm **sia** come estensione globale con `config.json` custom. Le due facce sono documentate **in una sola pagina** con sezioni distinte (canale npm + installazione globale + config): [`pacchetti-npm/pi-permission-system.md`](pacchetti-npm/pi-permission-system.md). Vedi anche [`config/permission-system.md`](config/permission-system.md) per il riferimento del file di policy.
 
-## 5. Skill builtin
+## 5. Skill (fornite dai pacchetti)
+
+Le 6 skill attuali **non sono installate separatamente**: derivano automaticamente dai pacchetti installati tramite il campo `pi.skills` del loro `package.json`. Panoramica e mappa pacchetto→skill in [`skills/README.md`](skills/README.md). Derivano da 3 pacchetti: `pi-web-access`→librarian, `pi-subagents`→pi-subagents, `pi-lens`→le altre 4.
 
 | Skill | Derivata da | Quando usarla |
 | --- | --- | --- |

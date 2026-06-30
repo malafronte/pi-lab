@@ -20,7 +20,7 @@ pi install npm:pi-lens
 
 ## Configurazione
 
-Nessun file di config dedicato obbligatorio: lavora sul workspace corrente. Le regole custom (ast-grep YAML, tree-sitter query) vanno nella drop path del progetto (vedi skill `write-ast-grep-rule` e `write-tree-sitter-rule`). Il pacchetto porta con sé 6 skill builtin.
+Nessun file di config dedicato obbligatorio: lavora sul workspace corrente. Le regole custom (ast-grep YAML, tree-sitter query) vanno nella drop path del progetto (vedi skill `write-ast-grep-rule` e `write-tree-sitter-rule`). Il pacchetto porta con sé 4 skill (dichiarate via `pi.skills`): vedi [`docs/skills/README.md`](../skills/README.md).
 
 ## Uso
 
@@ -88,8 +88,8 @@ ast_grep_search({ lang: "typescript", pattern: "fetchMetrics($ARGS)" })
 ast_grep_outline({ paths: ["src/index.ts"], view: "expanded" })
 ```
 
-## Skill builtin
+## Skill (fornite da questo pacchetto)
 
-pi-lens porta 4 skill: `ast-grep`, `lsp-navigation`, `write-ast-grep-rule`, `write-tree-sitter-rule` (vedi [`docs/skills/`](../skills/)).
+pi-lens porta 4 skill (dichiarate via `pi.skills`): `ast-grep`, `lsp-navigation`, `write-ast-grep-rule`, `write-tree-sitter-rule` (vedi [`docs/skills/`](../skills/)).
 
 Per l'analisi dettagliata del pacchetto vedi [`docs/approfondimenti/pacchetti-analisi/01-pi-lens.md`](../approfondimenti/pacchetti-analisi/01-pi-lens.md) e [`docs/approfondimenti/raccomandazioni-pacchetti.md`](../approfondimenti/pacchetti-analisi/00-raccomandazioni.md).
